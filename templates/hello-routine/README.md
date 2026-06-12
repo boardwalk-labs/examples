@@ -11,10 +11,10 @@ The smallest useful workflow: one `agent()` call, one `output()`. ~20 lines.
 
 ```sh
 boardwalk check .                 # validate locally — no account
-boardwalk run . --org <your-org>  # deploy + run on Boardwalk Cloud
+boardwalk run . --org <your-org>  # deploy + run on hosted Boardwalk
 ```
 
-`agent()` names no model, so Cloud routes automatically. On a self-hosted engine it uses your
+`agent()` names no model, so the hosted platform routes automatically. On a self-hosted engine it uses your
 configured default model. (`boardwalk dev` runs the program locally too; `agent()` there lands
 with the local engine.)
 

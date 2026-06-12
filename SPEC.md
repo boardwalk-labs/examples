@@ -2,7 +2,7 @@
 
 > The template gallery behind `boardwalk init`, and the top of the funnel. MIT. Public in **Phase 1**.
 >
-> Governing context: root [`MASTER_SPEC.md`](../MASTER_SPEC.md) §5.3 — **every template is a parity test**: it must run unmodified under `boardwalk dev`, the self-hosted engine, and Boardwalk Cloud.
+> Governing context: root [`MASTER_SPEC.md`](../MASTER_SPEC.md) §5.3 — **every template is a parity test**: it must run unmodified under `boardwalk dev`, the self-hosted engine, and the hosted Boardwalk platform.
 
 ## 1. Purpose
 
@@ -24,7 +24,7 @@ harness/              — CI runner that executes every template end-to-end
 Rules:
 - **No secrets, ever** — `.env.example` placeholders only; CI provides real values from its own secret store.
 - **Multi-workflow templates** (e.g. `pipeline`) hold one sub-package per workflow (`parent/`, `child/`) — one workflow per project directory keeps each deploy link separate; the registry entry lists its `packages`.
-- **Model-omission-friendly:** templates call `agent(prompt)` without a model by default (works on Cloud routing and on a locally configured default); a commented line shows the explicit-model form.
+- **Model-omission-friendly:** templates call `agent(prompt)` without a model by default (works on the platform routing and on a locally configured default); a commented line shows the explicit-model form.
 - **Minimal dependencies** per template; each template is a standalone npm project (`init` copies it out verbatim).
 - Each `README.md` is the template's docs page; `registry.json` descriptions are one sentence.
 
@@ -45,12 +45,12 @@ Additions require: a distinct primitive or pattern not already covered, plus the
 ## 4. CI (the harness)
 
 - On every PR: each template is validated (`check`-equivalent) and **executed end-to-end** under the local engine with CI-provided env; asserts terminal status `completed` and a non-empty event stream.
-- **v0.1 status:** `harness/run.mjs` (zero-dep, `$BOARDWALK_CLI` or `boardwalk` on PATH) runs `boardwalk check` on every package, enforces registry ⇄ filesystem ⇄ `.env.example` consistency, and dev-executes the agent-free templates (`webhook-responder`, `long-watch`) against a local HTTP fixture. The agent templates join the dev battery when the local engine ships; until then they're covered by `check` + the scheduled Cloud battery.
-- On a schedule: the same battery against Boardwalk Cloud via the public CLI path (deploy → run → assert), so Cloud parity regressions surface here.
+- **v0.1 status:** `harness/run.mjs` (zero-dep, `$BOARDWALK_CLI` or `boardwalk` on PATH) runs `boardwalk check` on every package, enforces registry ⇄ filesystem ⇄ `.env.example` consistency, and dev-executes the agent-free templates (`webhook-responder`, `long-watch`) against a local HTTP fixture. The agent templates join the dev battery when the local engine ships; until then they're covered by `check` + the scheduled platform battery.
+- On a schedule: the same battery against the Boardwalk platform via the public CLI path (deploy → run → assert), so platform parity regressions surface here.
 - A template whose external dependency is flaky gets a recorded/stubbed variant for PR CI and keeps the live variant in the scheduled run — never a skipped test.
 
 ## 5. Ready to go public when
 
-1. All v1 templates green in the harness under the local path (`dev`); Cloud path green for `hello-routine`, `morning-digest`, `claude-code-cron` at minimum.
+1. All v1 templates green in the harness under the local path (`dev`); platform path green for `hello-routine`, `morning-digest`, `claude-code-cron` at minimum.
 2. `boardwalk init <name>` consumes `registry.json` and produces a project that runs without edits (beyond `.env`).
 3. Publication checklist (MASTER_SPEC §8) passes.

@@ -4,7 +4,7 @@ Working, copyable [Boardwalk](https://boardwalk.sh) workflow templates. Each one
 project: copy it out (or `boardwalk init <dir> --template <name>`), fill in `.env`, run.
 
 **Every template is a parity test.** It must run unmodified under `boardwalk dev`, the
-self-hosted Boardwalk engine, and Boardwalk Cloud — the CI harness in this repo enforces it. A
+self-hosted Boardwalk engine, and the hosted Boardwalk platform — the CI harness in this repo enforces it. A
 template that needs per-engine edits is rejected.
 
 ## Templates
@@ -22,7 +22,7 @@ template that needs per-engine edits is rejected.
 ## Conventions (every template)
 
 - `index.ts` — the whole workflow, **as a script**: a pure-literal `meta` export, then the program as the module body (top-level await throughout). Importing the file is running it.
-- `agent()` calls name **no model** by default (Cloud routes automatically; local engines use a
+- `agent()` calls name **no model** by default (the hosted platform routes automatically; local engines use a
   configured default); a comment shows the explicit-model form.
 - `.env.example` documents every secret the template needs. **No real secrets, ever.**
 - Minimal dependencies — `@boardwalk/workflow` and the platform, nothing else unless the
@@ -37,7 +37,7 @@ BOARDWALK_CLI="node ../boardwalk-cli/bin/boardwalk.js" node harness/run.mjs
 
 It validates every template (`boardwalk check`), checks registry/.env.example consistency, and
 executes the agent-free templates end-to-end via `boardwalk dev`. (Agent templates execute in
-the scheduled Cloud battery; they run under `dev` once the local engine ships.)
+the scheduled platform battery; they run under `dev` once the local engine ships.)
 
 ## Contributing a template
 

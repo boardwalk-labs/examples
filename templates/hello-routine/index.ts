@@ -11,7 +11,7 @@ export const meta = {
   triggers: [{ kind: "manual" }],
 } satisfies WorkflowMeta;
 
-// No model named — Boardwalk Cloud routes automatically; a local engine uses its
+// No model named — hosted Boardwalk routes automatically; a local engine uses its
 // configured default. Pin one explicitly whenever you want:
 //   await agent("…", { model: "anthropic/claude-sonnet-4.5" })
 const haiku = await agent("Write a haiku about a boardwalk at sunrise.");

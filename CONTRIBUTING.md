@@ -8,8 +8,8 @@ specific.
 A new template needs **a primitive or pattern not already covered** by the table in
 [README.md](./README.md), plus:
 
-- **Parity:** it runs unmodified under `boardwalk dev`, the self-hosted engine, and Boardwalk
-  Cloud. A template that needs per-engine edits is rejected.
+- **Parity:** it runs unmodified under `boardwalk dev`, the self-hosted engine, and the hosted
+  Boardwalk platform. A template that needs per-engine edits is rejected.
 - **One idea per template.** Resist the kitchen sink — if it demonstrates two patterns, it's
   probably two templates (or one too many).
 - **Conventions:** pure-literal `meta` + the program as the top-level module body (a script — no wrapper function); `agent()` names no model by

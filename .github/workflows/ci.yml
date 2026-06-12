@@ -5,7 +5,7 @@ on:
     branches: [main]
   pull_request:
   schedule:
-    # The scheduled run is where the Cloud-parity battery will live (SPEC §4); for now it
+    # The scheduled run is where the platform-parity battery will live (SPEC §4); for now it
     # re-runs the local battery daily so template rot surfaces without a PR.
     - cron: "17 9 * * *"
 
