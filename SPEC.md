@@ -24,7 +24,7 @@ harness/              — CI runner that executes every template end-to-end
 Rules:
 - **No secrets, ever** — `.env.example` placeholders only; CI provides real values from its own secret store.
 - **Multi-workflow templates** (e.g. `pipeline`) hold one sub-package per workflow (`parent/`, `child/`) — one workflow per project directory keeps each deploy link separate; the registry entry lists its `packages`.
-- **Model-omission-friendly:** templates call `agent(prompt)` without a model by default (works on the platform routing and on a locally configured default); a commented line shows the explicit-model form.
+- **Model-omission-friendly:** templates call `agent(prompt)` without a model by default — the default `boardwalk` provider routes automatically on every engine; a commented line shows the explicit-model form.
 - **Minimal dependencies** per template; each template is a standalone npm project (`init` copies it out verbatim).
 - Each `README.md` is the template's docs page; `registry.json` descriptions are one sentence.
 

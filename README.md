@@ -22,8 +22,9 @@ template that needs per-engine edits is rejected.
 ## Conventions (every template)
 
 - `index.ts` — the whole workflow, **as a script**: a pure-literal `meta` export, then the program as the module body (top-level await throughout). Importing the file is running it.
-- `agent()` calls name **no model** by default (the hosted platform routes automatically; local engines use a
-  configured default); a comment shows the explicit-model form.
+- `agent()` calls name **no model** by default — the default `boardwalk` provider routes
+  automatically on every engine (locally via `boardwalk login`); a comment shows the
+  explicit-model form. BYO keys are an explicit `provider`, never a fallback.
 - `.env.example` documents every secret the template needs. **No real secrets, ever.**
 - Minimal dependencies — `@boardwalk/workflow` and the platform, nothing else unless the
   template is *about* a dependency.

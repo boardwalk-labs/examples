@@ -14,9 +14,10 @@ boardwalk check .                 # validate locally — no account
 boardwalk run . --org <your-org>  # deploy + run on hosted Boardwalk
 ```
 
-`agent()` names no model, so the hosted platform routes automatically. On a self-hosted engine it uses your
-configured default model. (`boardwalk dev` runs the program locally too; `agent()` there lands
-with the local engine.)
+`agent()` names no model and no provider, so Boardwalk routes it automatically — that's the
+default on every engine; locally it's powered by your `boardwalk login` account. Your own keys
+are used only when you name a provider explicitly. (`boardwalk dev` runs the program locally
+too; `agent()` there lands with the local engine.)
 
 ## Make it yours
 
