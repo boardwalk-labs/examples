@@ -1,4 +1,4 @@
-# Contributing to boardwalk-examples
+# Contributing to examples
 
 Templates are the top of the funnel — a new user's first ten minutes. The bar is accordingly
 specific.

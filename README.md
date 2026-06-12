@@ -1,4 +1,4 @@
-# boardwalk-examples
+# examples
 
 Working, copyable [Boardwalk](https://boardwalk.sh) workflow templates. Each one is a standalone
 project: copy it out (or `boardwalk init <dir> --template <name>`), fill in `.env`, run.
@@ -33,7 +33,7 @@ template that needs per-engine edits is rejected.
 
 ```sh
 node harness/run.mjs                 # uses `boardwalk` from PATH
-BOARDWALK_CLI="node ../boardwalk-cli/bin/boardwalk.js" node harness/run.mjs
+BOARDWALK_CLI="node ../cli/bin/boardwalk.js" node harness/run.mjs
 ```
 
 It validates every template (`boardwalk check`), checks registry/.env.example consistency, and

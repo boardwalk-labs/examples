@@ -1,4 +1,4 @@
-# SPEC — `boardwalk-examples`
+# SPEC — `examples`
 
 > The template gallery behind `boardwalk init`, and the top of the funnel. MIT. Public in **Phase 1**.
 >
