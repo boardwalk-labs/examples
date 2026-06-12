@@ -18,6 +18,6 @@ jobs:
         with:
           node-version: 24
       - name: Install the Boardwalk CLI
-        run: npm install -g @boardwalk/cli
+        run: npm install -g @boardwalk-labs/cli
       - name: Run the template harness
         run: node harness/run.mjs

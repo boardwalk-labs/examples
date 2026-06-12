@@ -4,7 +4,7 @@
 // per URL — and aggregates the results. Composition is just code: no DAG syntax, no pipeline
 // DSL; a loop and an await.
 
-import { Phase, input, output, workflows, type WorkflowMeta } from "@boardwalk/workflow";
+import { Phase, input, output, workflows, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "pipeline",

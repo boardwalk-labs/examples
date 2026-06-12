@@ -4,7 +4,7 @@
 // must answer in a fixed JSON shape (the `schema` option). Wide-then-narrow beats
 // one-attempt-iterated whenever the solution space is wide.
 
-import { Phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk/workflow";
+import { Phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "fan-out-judge",

@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@boardwalk/workflow": "^0.1.0"
+    "@boardwalk-labs/workflow": "^0.1.0"
   }
 }

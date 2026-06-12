@@ -4,7 +4,7 @@
 // a short prioritized digest, output it. The deterministic code does the fetching (the trusted
 // layer holds the token); the agent only does the writing.
 
-import { Phase, agent, output, secrets, type WorkflowMeta } from "@boardwalk/workflow";
+import { Phase, agent, output, secrets, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "morning-digest",

@@ -26,7 +26,7 @@ template that needs per-engine edits is rejected.
   automatically on every engine (locally via `boardwalk login`); a comment shows the
   explicit-model form. BYO keys are an explicit `provider`, never a fallback.
 - `.env.example` documents every secret the template needs. **No real secrets, ever.**
-- Minimal dependencies — `@boardwalk/workflow` and the platform, nothing else unless the
+- Minimal dependencies — `@boardwalk-labs/workflow` and the platform, nothing else unless the
   template is *about* a dependency.
 
 ## Running the harness

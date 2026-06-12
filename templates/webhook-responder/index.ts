@@ -4,7 +4,7 @@
 // open a ticket, or just log it. Deliberately agent-free — it demonstrates the trigger + input
 // path, and it runs end-to-end under `boardwalk dev` today.
 
-import { Phase, input, output, type WorkflowMeta } from "@boardwalk/workflow";
+import { Phase, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "webhook-responder",

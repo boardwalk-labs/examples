@@ -3,7 +3,7 @@
 // One manual trigger, one agent() call, one output. Run it, read the result, then start
 // swapping in your own prompt.
 
-import { agent, output, type WorkflowMeta } from "@boardwalk/workflow";
+import { agent, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "hello-routine",

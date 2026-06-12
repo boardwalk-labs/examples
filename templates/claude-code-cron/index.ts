@@ -7,7 +7,7 @@
 
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { output, secrets, type WorkflowMeta } from "@boardwalk/workflow";
+import { output, secrets, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "claude-code-cron",

@@ -3,7 +3,7 @@
 // Fetch one URL, agent-summarize it, output the summary. A workflow like any other: you can run
 // it directly, on its own trigger, or — as the pipeline parent does — via workflows.call.
 
-import { agent, input, output, type WorkflowMeta } from "@boardwalk/workflow";
+import { agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "pipeline-child",

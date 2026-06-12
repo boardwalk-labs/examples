@@ -4,7 +4,7 @@
 // sleep — locals survive, no checkpoint dance, no state machine — and `budget` caps how long
 // a forgotten watch can run. Agent-free, so it runs end-to-end under `boardwalk dev` today.
 
-import { Phase, input, output, sleep, type WorkflowMeta } from "@boardwalk/workflow";
+import { Phase, input, output, sleep, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "long-watch",
