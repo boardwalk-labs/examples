@@ -13,7 +13,7 @@
 
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -32,6 +32,20 @@ const fail = (msg) => {
 const ok = (msg) => {
   console.log(`  ✓ ${msg}`);
 };
+
+/** Template files on disk, relative POSIX paths, minus local-only dirs. */
+function listFiles(dir, prefix = "") {
+  const SKIP = new Set(["node_modules", ".boardwalk", ".bw-runs", ".env"]);
+  const out = [];
+  for (const name of readdirSync(dir)) {
+    if (SKIP.has(name)) continue;
+    const abs = join(dir, name);
+    const rel = prefix === "" ? name : `${prefix}/${name}`;
+    if (statSync(abs).isDirectory()) out.push(...listFiles(abs, rel));
+    else out.push(rel);
+  }
+  return out;
+}
 
 // Async on purpose: a blocking spawn would freeze this process's event loop, and the fixture
 // HTTP server below must keep answering while a `dev` run probes it.
@@ -75,6 +89,18 @@ try {
   for (const t of registry.templates) {
     console.log(`\n${t.name}`);
     const dir = join(templatesDir, t.name);
+
+    // `files` is the fetch list `boardwalk init` downloads — it must exactly match the disk.
+    const diskFiles = listFiles(dir).sort();
+    const registryFiles = [...t.files].sort();
+    if (JSON.stringify(diskFiles) === JSON.stringify(registryFiles)) {
+      ok(`files list matches disk (${diskFiles.length})`);
+    } else {
+      const missing = registryFiles.filter((f) => !diskFiles.includes(f));
+      const unlisted = diskFiles.filter((f) => !registryFiles.includes(f));
+      if (missing.length > 0) fail(`registry files not on disk: ${missing.join(", ")}`);
+      if (unlisted.length > 0) fail(`disk files not in registry: ${unlisted.join(", ")}`);
+    }
 
     // Secrets documented in .env.example (per package for multi-package templates).
     for (const secret of t.secrets) {

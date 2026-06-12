@@ -6,21 +6,24 @@
       "description": "The smallest useful workflow: one agent call, one output.",
       "tags": ["starter", "agent"],
       "secrets": [],
-      "packages": ["."]
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
       "name": "claude-code-cron",
       "description": "Run a Claude Code prompt on a schedule — zero-rewrite hosting for `claude -p` scripts.",
       "tags": ["migration", "cron", "claude-code"],
       "secrets": ["ANTHROPIC_API_KEY"],
-      "packages": ["."]
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".env.example", ".gitignore", "README.md"]
     },
     {
       "name": "morning-digest",
       "description": "Cron + a secret + agent summarization: your GitHub issues as a morning digest.",
       "tags": ["cron", "secrets", "agent"],
       "secrets": ["GITHUB_TOKEN"],
-      "packages": ["."]
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".env.example", ".gitignore", "README.md"]
     },
     {
       "name": "webhook-responder",
@@ -28,6 +31,7 @@
       "tags": ["webhook", "input"],
       "secrets": [],
       "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"],
       "dev": {
         "input": { "event": "deploy_failed", "service": "api", "severity": "critical" },
         "expectOutputContains": "page"
@@ -38,14 +42,24 @@
       "description": "parallel() agent drafts + a schema-validated judge verdict.",
       "tags": ["parallel", "schema", "agent"],
       "secrets": [],
-      "packages": ["."]
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
       "name": "pipeline",
       "description": "workflows.call composition: a parent durably fanning work through a child.",
       "tags": ["composition", "workflows.call", "agent"],
       "secrets": [],
-      "packages": ["parent", "child"]
+      "packages": ["parent", "child"],
+      "files": [
+        "README.md",
+        "parent/index.ts",
+        "parent/package.json",
+        "parent/.gitignore",
+        "child/index.ts",
+        "child/package.json",
+        "child/.gitignore"
+      ]
     },
     {
       "name": "long-watch",
@@ -53,6 +67,7 @@
       "tags": ["sleep", "budget", "hold-and-pay"],
       "secrets": [],
       "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"],
       "dev": {
         "input": { "url": "{{harnessUrl}}", "deadlineSeconds": 10, "intervalSeconds": 1 },
         "expectOutputContains": "healthy"
