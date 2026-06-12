@@ -46,6 +46,54 @@
       "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
+      "name": "classify-and-act",
+      "description": "A classifier agent labels the task, then code routes it to a tailored handler.",
+      "tags": ["pattern", "routing", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
+      "name": "adversarial-verify",
+      "description": "Extract a document's claims and refute each with its own skeptical agent.",
+      "tags": ["pattern", "verification", "parallel", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
+      "name": "generate-and-filter",
+      "description": "Brainstorm from several angles in parallel, dedupe, then keep the best by a rubric.",
+      "tags": ["pattern", "parallel", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
+      "name": "tournament",
+      "description": "Rank items by agent-judged pairwise comparison (merge sort holds the bracket).",
+      "tags": ["pattern", "ranking", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
+      "name": "loop-until-done",
+      "description": "Spawn finder agents until they stop turning up anything new.",
+      "tags": ["pattern", "loop", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
+      "name": "quarantine-triage",
+      "description": "Classify untrusted items with no-privilege readers; act on summaries in trusted code.",
+      "tags": ["pattern", "security", "parallel", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
       "name": "pipeline",
       "description": "workflows.call composition: a parent durably fanning work through a child.",
       "tags": ["composition", "workflows.call", "agent"],

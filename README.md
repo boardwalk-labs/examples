@@ -9,15 +9,34 @@ template that needs per-engine edits is rejected.
 
 ## Templates
 
+Start with the primitives — one feature each — then compose them into the multi-agent patterns.
+
+### Primitives
+
 | Template | What it demonstrates |
 | --- | --- |
 | [`hello-routine`](./templates/hello-routine) | The minimal workflow: manual trigger, one `agent()` call, `output()` |
 | [`claude-code-cron`](./templates/claude-code-cron) | Running an existing `claude -p` command-line script on a schedule, unchanged |
 | [`morning-digest`](./templates/morning-digest) | Cron + `secrets.get` + agent summarization |
 | [`webhook-responder`](./templates/webhook-responder) | Webhook trigger + typed `input` + conditional triage |
-| [`fan-out-judge`](./templates/fan-out-judge) | `parallel()` agent drafts + a `schema`-validated judge |
 | [`pipeline`](./templates/pipeline) | `workflows.call` composition: a parent durably fanning work through a child |
 | [`long-watch`](./templates/long-watch) | `sleep({ until })` + budget caps over a long-running watch |
+
+### Patterns
+
+The orchestration shapes behind big multi-agent jobs — bug hunts, migrations, deep research,
+triage. Each is one composable idea you can drop into a larger program: spawn separate agents
+with their own context windows so the work gets finished, verified, and kept on-goal.
+
+| Template | What it demonstrates |
+| --- | --- |
+| [`classify-and-act`](./templates/classify-and-act) | A classifier agent labels the task; code routes it to a tailored handler |
+| [`fan-out-judge`](./templates/fan-out-judge) | Fan out + synthesize: `parallel()` drafts + a `schema`-validated judge |
+| [`adversarial-verify`](./templates/adversarial-verify) | One skeptical agent per claim — verify by trying to refute |
+| [`generate-and-filter`](./templates/generate-and-filter) | Brainstorm wide in parallel, dedupe, keep the best by a rubric |
+| [`tournament`](./templates/tournament) | Rank items by agent-judged pairwise comparison (merge sort holds the bracket) |
+| [`loop-until-done`](./templates/loop-until-done) | Loop spawning finders until nothing new turns up |
+| [`quarantine-triage`](./templates/quarantine-triage) | Read untrusted content with no-privilege agents; act in trusted code |
 
 ## Conventions (every template)
 
