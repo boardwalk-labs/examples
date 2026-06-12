@@ -11,13 +11,13 @@ template that needs per-engine edits is rejected.
 
 | Template | What it demonstrates |
 | --- | --- |
-| [`hello-routine`](./templates/hello-routine) | The 20-line floor: manual trigger, one `agent()` call, `output()` |
-| [`claude-code-cron`](./templates/claude-code-cron) | **The migration template** — your existing `claude -p` script on a hosted cron, zero rewrite |
+| [`hello-routine`](./templates/hello-routine) | The minimal workflow: manual trigger, one `agent()` call, `output()` |
+| [`claude-code-cron`](./templates/claude-code-cron) | Running an existing `claude -p` command-line script on a schedule, unchanged |
 | [`morning-digest`](./templates/morning-digest) | Cron + `secrets.get` + agent summarization |
 | [`webhook-responder`](./templates/webhook-responder) | Webhook trigger + typed `input` + conditional triage |
 | [`fan-out-judge`](./templates/fan-out-judge) | `parallel()` agent drafts + a `schema`-validated judge |
-| [`pipeline`](./templates/pipeline) | `workflows.call` composition: parent durably fanning work through a child |
-| [`long-watch`](./templates/long-watch) | `sleep({ until })` + budget caps — hold-and-pay done right |
+| [`pipeline`](./templates/pipeline) | `workflows.call` composition: a parent durably fanning work through a child |
+| [`long-watch`](./templates/long-watch) | `sleep({ until })` + budget caps over a long-running watch |
 
 ## Conventions (every template)
 
@@ -43,7 +43,7 @@ the scheduled platform battery; they run under `dev` once the local engine ships
 ## Contributing a template
 
 A new template needs a primitive or pattern not already covered, the conventions above, and a
-green harness. One idea per template — resist the kitchen sink.
+green harness. Keep each template to one idea; don't bundle unrelated features.
 
 ## License
 
