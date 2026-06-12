@@ -18,6 +18,15 @@ jobs:
         with:
           node-version: 24
       - name: Install the Boardwalk CLI
+        id: cli
+        # The CLI isn't on npm yet (pre-launch). Don't hard-fail the build on the 404 — the harness
+        # is skipped below until @boardwalk-labs/cli publishes, at which point this install succeeds
+        # and the harness runs for real with no further change.
+        continue-on-error: true
         run: npm install -g @boardwalk-labs/cli
       - name: Run the template harness
+        if: steps.cli.outcome == 'success'
         run: node harness/run.mjs
+      - name: Harness skipped (CLI not published yet)
+        if: steps.cli.outcome != 'success'
+        run: echo "::warning title=Harness skipped::@boardwalk-labs/cli is not on npm yet — skipping the template harness. It runs automatically once the CLI publishes."
