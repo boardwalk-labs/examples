@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # The scheduled run is where the Cloud-parity battery will live (SPEC §4); for now it
+    # re-runs the local battery daily so template rot surfaces without a PR.
+    - cron: "17 9 * * *"
+
+jobs:
+  harness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install the Boardwalk CLI
+        run: npm install -g @boardwalk/cli
+      - name: Run the template harness
+        run: node harness/run.mjs

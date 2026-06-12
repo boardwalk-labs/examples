@@ -1,0 +1,8 @@
+{
+  "name": "morning-digest",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@boardwalk/workflow": "^0.1.0"
+  }
+}

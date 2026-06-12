@@ -1,0 +1,8 @@
+{
+  "name": "hello-routine",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@boardwalk/workflow": "^0.1.0"
+  }
+}

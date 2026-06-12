@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "name": "hello-routine",
+      "description": "The smallest useful workflow: one agent call, one output.",
+      "tags": ["starter", "agent"],
+      "secrets": [],
+      "packages": ["."]
+    },
+    {
+      "name": "claude-code-cron",
+      "description": "Run a Claude Code prompt on a schedule — zero-rewrite hosting for `claude -p` scripts.",
+      "tags": ["migration", "cron", "claude-code"],
+      "secrets": ["ANTHROPIC_API_KEY"],
+      "packages": ["."]
+    },
+    {
+      "name": "morning-digest",
+      "description": "Cron + a secret + agent summarization: your GitHub issues as a morning digest.",
+      "tags": ["cron", "secrets", "agent"],
+      "secrets": ["GITHUB_TOKEN"],
+      "packages": ["."]
+    },
+    {
+      "name": "webhook-responder",
+      "description": "Webhook trigger + typed input + conditional triage (page / ticket / ignore).",
+      "tags": ["webhook", "input"],
+      "secrets": [],
+      "packages": ["."],
+      "dev": {
+        "input": { "event": "deploy_failed", "service": "api", "severity": "critical" },
+        "expectOutputContains": "page"
+      }
+    },
+    {
+      "name": "fan-out-judge",
+      "description": "parallel() agent drafts + a schema-validated judge verdict.",
+      "tags": ["parallel", "schema", "agent"],
+      "secrets": [],
+      "packages": ["."]
+    },
+    {
+      "name": "pipeline",
+      "description": "workflows.call composition: a parent durably fanning work through a child.",
+      "tags": ["composition", "workflows.call", "agent"],
+      "secrets": [],
+      "packages": ["parent", "child"]
+    },
+    {
+      "name": "long-watch",
+      "description": "sleep({ until }) + budget caps: probe a URL until healthy or deadline.",
+      "tags": ["sleep", "budget", "hold-and-pay"],
+      "secrets": [],
+      "packages": ["."],
+      "dev": {
+        "input": { "url": "{{harnessUrl}}", "deadlineSeconds": 10, "intervalSeconds": 1 },
+        "expectOutputContains": "healthy"
+      }
+    }
+  ]
+}

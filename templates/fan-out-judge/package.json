@@ -1,0 +1,8 @@
+{
+  "name": "fan-out-judge",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@boardwalk/workflow": "^0.1.0"
+  }
+}
