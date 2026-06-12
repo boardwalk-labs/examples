@@ -17,16 +17,14 @@ export const meta = {
   budget: { max_usd: 0.25, max_duration_seconds: 120 },
 } satisfies WorkflowMeta;
 
-export default async function run(): Promise<void> {
-  const url = (input as { url: string }).url;
+const url = (input as { url: string }).url;
 
-  const res = await fetch(url, { headers: { "User-Agent": "pipeline-child-workflow" } });
-  if (!res.ok) throw new Error(`${url} returned ${res.status}`);
-  const text = (await res.text()).slice(0, 20_000); // keep the prompt bounded
+const res = await fetch(url, { headers: { "User-Agent": "pipeline-child-workflow" } });
+if (!res.ok) throw new Error(`${url} returned ${res.status}`);
+const text = (await res.text()).slice(0, 20_000); // keep the prompt bounded
 
-  const summary = await agent(
-    `Summarize this page in 3 bullets, then one sentence on who'd care about it.\n\nURL: ${url}\n\n${text}`,
-  );
+const summary = await agent(
+  `Summarize this page in 3 bullets, then one sentence on who'd care about it.\n\nURL: ${url}\n\n${text}`,
+);
 
-  output({ url, summary });
-}
+output({ url, summary });

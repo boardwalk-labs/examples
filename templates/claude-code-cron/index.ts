@@ -21,19 +21,17 @@ export const meta = {
 const PROMPT = `Check the open issues on my repo that are labeled "bug" and have no assignee.
 For each, write a one-line triage suggestion. End with the single most urgent one.`;
 
-export default async function run(): Promise<void> {
-  // The secret lives in Boardwalk's vault (or your .env locally) — the program fetches it
-  // and hands it to the subprocess. It never appears in logs or model context.
-  const anthropicKey = await secrets.get("ANTHROPIC_API_KEY");
+// The secret lives in Boardwalk's vault (or your .env locally) — the program fetches it
+// and hands it to the subprocess. It never appears in logs or model context.
+const anthropicKey = await secrets.get("ANTHROPIC_API_KEY");
 
-  const { stdout } = await promisify(execFile)(
-    "npx",
-    ["-y", "@anthropic-ai/claude-code", "-p", PROMPT, "--output-format", "text"],
-    {
-      env: { ...process.env, ANTHROPIC_API_KEY: anthropicKey },
-      maxBuffer: 16 * 1024 * 1024,
-    },
-  );
+const { stdout } = await promisify(execFile)(
+  "npx",
+  ["-y", "@anthropic-ai/claude-code", "-p", PROMPT, "--output-format", "text"],
+  {
+    env: { ...process.env, ANTHROPIC_API_KEY: anthropicKey },
+    maxBuffer: 16 * 1024 * 1024,
+  },
+);
 
-  output(stdout.trim());
-}
+output(stdout.trim());

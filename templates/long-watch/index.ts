@@ -29,30 +29,30 @@ interface WatchInput {
   intervalSeconds?: number;
 }
 
-export default async function run(): Promise<void> {
-  const { url, deadlineSeconds = 600, intervalSeconds = 30 } = input as WatchInput;
-  const deadline = new Date(Date.now() + deadlineSeconds * 1000);
+const { url, deadlineSeconds = 600, intervalSeconds = 30 } = input as WatchInput;
+const deadline = new Date(Date.now() + deadlineSeconds * 1000);
 
-  Phase("Watch");
-  let attempts = 0;
-  for (;;) {
-    attempts += 1;
-    const status = await probe(url);
-    if (status !== null && status >= 200 && status < 300) {
-      output({ healthy: true, url, status, attempts });
-      return;
-    }
-
-    const nextProbe = new Date(Date.now() + intervalSeconds * 1000);
-    if (nextProbe >= deadline) {
-      output({ healthy: false, url, lastStatus: status, attempts });
-      throw new Error(`${url} was not healthy within ${String(deadlineSeconds)}s`);
-    }
-    // The run holds here — no polling loop in YOUR infrastructure, no requeue, no state to
-    // persist. `locals` (attempts, deadline) are simply still in scope when it wakes.
-    await sleep({ until: nextProbe });
+Phase("Watch");
+let attempts = 0;
+let healthyStatus: number | null = null;
+for (;;) {
+  attempts += 1;
+  const status = await probe(url);
+  if (status !== null && status >= 200 && status < 300) {
+    healthyStatus = status;
+    break;
   }
+
+  const nextProbe = new Date(Date.now() + intervalSeconds * 1000);
+  if (nextProbe >= deadline) {
+    output({ healthy: false, url, lastStatus: status, attempts });
+    throw new Error(`${url} was not healthy within ${String(deadlineSeconds)}s`);
+  }
+  // The run holds here — no polling loop in YOUR infrastructure, no requeue, no state to
+  // persist. `locals` (attempts, deadline) are simply still in scope when it wakes.
+  await sleep({ until: nextProbe });
 }
+output({ healthy: true, url, status: healthyStatus, attempts });
 
 /** One probe; null when the request itself failed (DNS, refused, timeout). */
 async function probe(url: string): Promise<number | null> {

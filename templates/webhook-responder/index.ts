@@ -31,27 +31,25 @@ interface Event {
 
 const QUIET_EVENTS = new Set(["heartbeat", "deploy_succeeded", "scale_event"]);
 
-export default async function run(): Promise<void> {
-  Phase("Triage");
-  const e = input as Event;
+Phase("Triage");
+const e = input as Event;
 
-  let action: "page" | "ticket" | "ignore";
-  let reason: string;
+let action: "page" | "ticket" | "ignore";
+let reason: string;
 
-  if (QUIET_EVENTS.has(e.event)) {
-    action = "ignore";
-    reason = `"${e.event}" is routine.`;
-  } else if (e.severity === "critical" || (e.severity === "high" && e.event === "deploy_failed")) {
-    action = "page";
-    reason = `${e.severity} ${e.event}${e.service !== undefined ? ` on ${e.service}` : ""} needs eyes now.`;
-  } else {
-    action = "ticket";
-    reason = `${e.severity} ${e.event} can wait for triage hours.`;
-  }
-
-  // From here, real responders call real APIs (PagerDuty, your tracker) with fetch + secrets —
-  // or hand the messy judgment calls to an agent():
-  //   const plan = await agent(`Given this event, who should own it? ${JSON.stringify(e)}`);
-
-  output({ action, reason, event: e.event, severity: e.severity });
+if (QUIET_EVENTS.has(e.event)) {
+  action = "ignore";
+  reason = `"${e.event}" is routine.`;
+} else if (e.severity === "critical" || (e.severity === "high" && e.event === "deploy_failed")) {
+  action = "page";
+  reason = `${e.severity} ${e.event}${e.service !== undefined ? ` on ${e.service}` : ""} needs eyes now.`;
+} else {
+  action = "ticket";
+  reason = `${e.severity} ${e.event} can wait for triage hours.`;
 }
+
+// From here, real responders call real APIs (PagerDuty, your tracker) with fetch + secrets —
+// or hand the messy judgment calls to an agent():
+//   const plan = await agent(`Given this event, who should own it? ${JSON.stringify(e)}`);
+
+output({ action, reason, event: e.event, severity: e.severity });

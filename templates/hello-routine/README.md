@@ -22,4 +22,5 @@ with the local engine.)
 
 Change the prompt. That's the whole template — it exists so your first green run is minutes away,
 and so you can see the shape of a workflow: a pure-literal `meta` (the contract engines read
-without executing your code) and a default-exported `run` function (ordinary TypeScript).
+without executing your code), then the program as the module body — a script that runs top to
+bottom, top-level await and all.

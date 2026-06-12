@@ -31,36 +31,34 @@ interface Verdict {
   rationale: string;
 }
 
-export default async function run(): Promise<void> {
-  const task = (input as { task: string }).task;
+const task = (input as { task: string }).task;
 
-  Phase("Draft ×3");
-  const drafts = await parallel(
-    ANGLES.map((angle) => () => agent(`${task}\n\nStyle constraint: ${angle}`)),
-  );
+Phase("Draft ×3");
+const drafts = await parallel(
+  ANGLES.map((angle) => () => agent(`${task}\n\nStyle constraint: ${angle}`)),
+);
 
-  Phase("Judge");
-  const verdict = await agent<Verdict>(
-    `You are judging ${String(drafts.length)} drafts of the same task: "${task}".
+Phase("Judge");
+const verdict = await agent<Verdict>(
+  `You are judging ${String(drafts.length)} drafts of the same task: "${task}".
 
 ${drafts.map((d, i) => `--- DRAFT ${String(i)} ---\n${d}`).join("\n\n")}
 
 Pick the single best draft. Answer ONLY with JSON: {"winner": <index>, "rationale": "<one sentence>"}`,
-    {
-      schema: {
-        type: "object",
-        properties: {
-          winner: { type: "integer", minimum: 0, maximum: ANGLES.length - 1 },
-          rationale: { type: "string" },
-        },
-        required: ["winner", "rationale"],
+  {
+    schema: {
+      type: "object",
+      properties: {
+        winner: { type: "integer", minimum: 0, maximum: ANGLES.length - 1 },
+        rationale: { type: "string" },
       },
+      required: ["winner", "rationale"],
     },
-  );
+  },
+);
 
-  output({
-    winner: drafts[verdict.winner] ?? drafts[0] ?? "",
-    rationale: verdict.rationale,
-    drafts,
-  });
-}
+output({
+  winner: drafts[verdict.winner] ?? drafts[0] ?? "",
+  rationale: verdict.rationale,
+  drafts,
+});

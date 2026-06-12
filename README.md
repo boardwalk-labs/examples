@@ -21,7 +21,7 @@ template that needs per-engine edits is rejected.
 
 ## Conventions (every template)
 
-- `index.ts` — the whole workflow: a pure-literal `meta` + a default-exported `run` function.
+- `index.ts` — the whole workflow, **as a script**: a pure-literal `meta` export, then the program as the module body (top-level await throughout). Importing the file is running it.
 - `agent()` calls name **no model** by default (Cloud routes automatically; local engines use a
   configured default); a comment shows the explicit-model form.
 - `.env.example` documents every secret the template needs. **No real secrets, ever.**

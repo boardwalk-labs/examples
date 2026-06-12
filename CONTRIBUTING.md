@@ -12,7 +12,7 @@ A new template needs **a primitive or pattern not already covered** by the table
   Cloud. A template that needs per-engine edits is rejected.
 - **One idea per template.** Resist the kitchen sink — if it demonstrates two patterns, it's
   probably two templates (or one too many).
-- **Conventions:** pure-literal `meta` + default-exported `run`; `agent()` names no model by
+- **Conventions:** pure-literal `meta` + the program as the top-level module body (a script — no wrapper function); `agent()` names no model by
   default (a comment shows the explicit form); `.env.example` documents every secret;
   dependencies only when the template is *about* the dependency.
 - **No secrets, ever.** Placeholders in `.env.example`; CI provides real values from its own

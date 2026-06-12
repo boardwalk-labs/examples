@@ -21,24 +21,21 @@ interface Issue {
   updated_at: string;
 }
 
-export default async function run(): Promise<void> {
-  Phase("Fetch issues");
-  const token = await secrets.get("GITHUB_TOKEN");
-  const res = await fetch("https://api.github.com/issues?filter=assigned&state=open&per_page=50", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github+json",
-      "User-Agent": "morning-digest-workflow",
-    },
-  });
-  if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
-  const issues = (await res.json()) as Issue[];
+Phase("Fetch issues");
+const token = await secrets.get("GITHUB_TOKEN");
+const res = await fetch("https://api.github.com/issues?filter=assigned&state=open&per_page=50", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/vnd.github+json",
+    "User-Agent": "morning-digest-workflow",
+  },
+});
+if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+const issues = (await res.json()) as Issue[];
 
-  if (issues.length === 0) {
-    output("No open issues assigned to you. Enjoy the quiet morning.");
-    return;
-  }
-
+if (issues.length === 0) {
+  output("No open issues assigned to you. Enjoy the quiet morning.");
+} else {
   Phase("Summarize");
   const listing = issues
     .map((i) => `- [${i.repository?.full_name ?? "?"}] ${i.title} (updated ${i.updated_at})\n  ${i.html_url}`)

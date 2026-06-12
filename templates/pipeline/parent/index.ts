@@ -20,22 +20,20 @@ export const meta = {
   budget: { max_usd: 2 },
 } satisfies WorkflowMeta;
 
-export default async function run(): Promise<void> {
-  const urls = (input as { urls: string[] }).urls;
+const urls = (input as { urls: string[] }).urls;
 
-  Phase("Fan out");
-  const summaries: { url: string; summary: unknown }[] = [];
-  for (const url of urls) {
-    // Each call is a real child run: it shows up in run history, it's billed and budgeted on
-    // its own, and it's idempotent — if THIS parent restarts, it re-attaches to the same child
-    // instead of running it twice.
-    const summary = await workflows.call("pipeline-child", { url });
-    summaries.push({ url, summary });
-  }
-
-  Phase("Aggregate");
-  output({
-    count: summaries.length,
-    summaries,
-  });
+Phase("Fan out");
+const summaries: { url: string; summary: unknown }[] = [];
+for (const url of urls) {
+  // Each call is a real child run: it shows up in run history, it's billed and budgeted on
+  // its own, and it's idempotent — if THIS parent restarts, it re-attaches to the same child
+  // instead of running it twice.
+  const summary = await workflows.call("pipeline-child", { url });
+  summaries.push({ url, summary });
 }
+
+Phase("Aggregate");
+output({
+  count: summaries.length,
+  summaries,
+});

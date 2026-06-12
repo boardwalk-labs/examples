@@ -11,10 +11,8 @@ export const meta = {
   triggers: [{ kind: "manual" }],
 } satisfies WorkflowMeta;
 
-export default async function run(): Promise<void> {
-  // No model named — Boardwalk Cloud routes automatically; a local engine uses its
-  // configured default. Pin one explicitly whenever you want:
-  //   await agent("…", { model: "anthropic/claude-sonnet-4.5" })
-  const haiku = await agent("Write a haiku about a boardwalk at sunrise.");
-  output(haiku);
-}
+// No model named — Boardwalk Cloud routes automatically; a local engine uses its
+// configured default. Pin one explicitly whenever you want:
+//   await agent("…", { model: "anthropic/claude-sonnet-4.5" })
+const haiku = await agent("Write a haiku about a boardwalk at sunrise.");
+output(haiku);
