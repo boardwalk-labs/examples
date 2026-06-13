@@ -2,7 +2,7 @@
 
 > The template gallery behind `boardwalk init`, and the top of the funnel. MIT. Public in **Phase 1**.
 >
-> Governing context: root [`MASTER_SPEC.md`](../MASTER_SPEC.md) §5.3 — **every template is a parity test**: it must run unmodified under `boardwalk dev`, the self-hosted engine, and the hosted Boardwalk platform.
+> **Every template is a parity test**: it must run unmodified under `boardwalk dev`, the self-hosted engine, and the hosted Boardwalk platform.
 
 ## 1. Purpose
 
@@ -53,4 +53,4 @@ Additions require: a distinct primitive or pattern not already covered, plus the
 
 1. All v1 templates green in the harness under the local path (`dev`); platform path green for `hello-routine`, `morning-digest`, `claude-code-cron` at minimum.
 2. `boardwalk init <name>` consumes `registry.json` and produces a project that runs without edits (beyond `.env`).
-3. Publication checklist (MASTER_SPEC §8) passes.
+3. Publication checklist passes.
