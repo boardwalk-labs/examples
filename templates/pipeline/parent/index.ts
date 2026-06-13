@@ -4,7 +4,7 @@
 // per URL — and aggregates the results. Composition is just code: no DAG syntax, no pipeline
 // DSL; a loop and an await.
 
-import { Phase, input, output, workflows, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, input, output, workflows, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "pipeline",
@@ -22,7 +22,7 @@ export const meta = {
 
 const urls = (input as { urls: string[] }).urls;
 
-Phase("Fan out");
+phase("Fan out");
 const summaries: { url: string; summary: unknown }[] = [];
 for (const url of urls) {
   // Each call is a real child run: it shows up in run history, it's billed and budgeted on
@@ -32,7 +32,7 @@ for (const url of urls) {
   summaries.push({ url, summary });
 }
 
-Phase("Aggregate");
+phase("Aggregate");
 output({
   count: summaries.length,
   summaries,

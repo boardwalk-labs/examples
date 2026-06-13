@@ -5,7 +5,7 @@
 // per matchup — only the two items being compared ever sit in a context window. Take the top
 // item for a single winner, or the whole order for a ranked list.
 
-import { Phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "tournament",
@@ -75,7 +75,7 @@ async function sort(xs: string[]): Promise<string[]> {
   return out;
 }
 
-Phase(`Rank ${String(items.length)} items`);
+phase(`Rank ${String(items.length)} items`);
 const ranked = await sort(items);
 
 output({

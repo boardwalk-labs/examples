@@ -4,7 +4,7 @@
 // a short prioritized digest, output it. The deterministic code does the fetching (the trusted
 // layer holds the token); the agent only does the writing.
 
-import { Phase, agent, output, secrets, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, output, secrets, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "morning-digest",
@@ -21,7 +21,7 @@ interface Issue {
   updated_at: string;
 }
 
-Phase("Fetch issues");
+phase("Fetch issues");
 const token = await secrets.get("GITHUB_TOKEN");
 const res = await fetch("https://api.github.com/issues?filter=assigned&state=open&per_page=50", {
   headers: {
@@ -36,7 +36,7 @@ const issues = (await res.json()) as Issue[];
 if (issues.length === 0) {
   output("No open issues assigned to you. Enjoy the quiet morning.");
 } else {
-  Phase("Summarize");
+  phase("Summarize");
   const listing = issues
     .map((i) => `- [${i.repository?.full_name ?? "?"}] ${i.title} (updated ${i.updated_at})\n  ${i.html_url}`)
     .join("\n");

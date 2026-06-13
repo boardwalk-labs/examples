@@ -4,7 +4,7 @@
 // label — a tailored agent for the messy cases, a plain action for the routine ones. Routing as
 // code means the cheap path stays cheap and only the hard cases spend a model.
 
-import { Phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "classify-and-act",
@@ -29,7 +29,7 @@ interface Label {
 
 const message = (input as { message: string }).message;
 
-Phase("Classify");
+phase("Classify");
 const label = await agent<Label>(
   `Classify this incoming message into exactly one category: bug, feature_request, question, or spam.
 
@@ -49,7 +49,7 @@ Answer ONLY with JSON: {"category": "<one of the four>", "reason": "<one sentenc
   },
 );
 
-Phase("Act");
+phase("Act");
 const result = await act(label.category, message);
 output({ category: label.category, reason: label.reason, ...result });
 

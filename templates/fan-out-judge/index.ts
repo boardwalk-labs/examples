@@ -4,7 +4,7 @@
 // must answer in a fixed JSON shape (the `schema` option). Wide-then-narrow beats
 // one-attempt-iterated whenever the solution space is wide.
 
-import { Phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "fan-out-judge",
@@ -33,12 +33,12 @@ interface Verdict {
 
 const task = (input as { task: string }).task;
 
-Phase("Draft ×3");
+phase("Draft ×3");
 const drafts = await parallel(
   ANGLES.map((angle) => () => agent(`${task}\n\nStyle constraint: ${angle}`)),
 );
 
-Phase("Judge");
+phase("Judge");
 const verdict = await agent<Verdict>(
   `You are judging ${String(drafts.length)} drafts of the same task: "${task}".
 

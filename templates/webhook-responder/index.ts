@@ -4,7 +4,7 @@
 // open a ticket, or just log it. Deliberately agent-free — it demonstrates the trigger + input
 // path, and it runs end-to-end under `boardwalk dev` today.
 
-import { Phase, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "webhook-responder",
@@ -31,7 +31,7 @@ interface Event {
 
 const QUIET_EVENTS = new Set(["heartbeat", "deploy_succeeded", "scale_event"]);
 
-Phase("Triage");
+phase("Triage");
 const e = input as Event;
 
 let action: "page" | "ticket" | "ignore";

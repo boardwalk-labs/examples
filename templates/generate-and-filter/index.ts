@@ -4,7 +4,7 @@
 // don't converge on the same answer), the program dedupes the pile in plain code, and a single
 // judge scores the survivors against a rubric and returns the best few. Diverge hard, narrow hard.
 
-import { Phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "generate-and-filter",
@@ -37,7 +37,7 @@ const ANGLES = [
   "Go playful — a pun, a portmanteau, something that makes people smile.",
 ];
 
-Phase("Generate");
+phase("Generate");
 const batches = await parallel(
   ANGLES.map((angle) => async () => {
     const { ideas } = await agent<Ideas>(
@@ -70,7 +70,7 @@ for (const idea of batches.flat()) {
   }
 }
 
-Phase("Filter");
+phase("Filter");
 const { picks } = await agent<Ranked>(
   `From these candidates for "${brief}", pick the best ${String(keep)} against this rubric:
 memorable, easy to say out loud, and not easily confused with an existing tool. Reject anything

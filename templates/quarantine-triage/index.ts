@@ -8,7 +8,7 @@
 //
 // Pair this with a cron trigger to drain a queue on a schedule.
 
-import { Phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "quarantine-triage",
@@ -51,7 +51,7 @@ interface Summary {
 
 const { items } = input as { items: Item[] };
 
-Phase("Quarantine — read");
+phase("Quarantine — read");
 // Reader agents get the raw, untrusted content — and nothing else. No tools, no secrets, no
 // fetch. Their only output is a structured summary; the content is data to describe, never
 // instructions to follow.
@@ -88,7 +88,7 @@ Answer ONLY with JSON:
   }),
 );
 
-Phase("Trusted — act");
+phase("Trusted — act");
 // Everything below is deterministic, privileged code. It sees only the structured summaries —
 // never item.content. This is where secrets.get() + fetch() to your tracker or pager would live.
 const tracked = new Set<string>(); // stand-in for "already filed"; a real one comes from your DB.

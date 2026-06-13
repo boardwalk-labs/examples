@@ -5,7 +5,7 @@
 // new against everything seen, and stop only after a couple of empty rounds in a row. A budget
 // and a hard round ceiling keep a runaway hunt bounded.
 
-import { Phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
+import { phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
   name: "loop-until-done",
@@ -40,7 +40,7 @@ const all: Finding[] = [];
 let dry = 0;
 let round = 0;
 
-Phase("Hunt");
+phase("Hunt");
 while (dry < DRY_ROUNDS && round < maxRounds) {
   round += 1;
   const known = all.map((f) => f.title).join("; ");
