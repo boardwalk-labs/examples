@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
+
 // The template harness — every template is a parity test.
 //
 // For each registry entry:
