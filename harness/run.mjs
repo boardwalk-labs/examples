@@ -11,10 +11,18 @@
 // CLI resolution: $BOARDWALK_CLI (e.g. "node /path/to/bin/boardwalk.js") or `boardwalk` on PATH.
 // Zero dependencies — plain Node.
 
-import { execFile } from "node:child_process";
+import { execFile, spawn } from "node:child_process";
 import { promisify } from "node:util";
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { createServer } from "node:http";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -59,6 +67,111 @@ async function runCli(args) {
     return { status: 0, stdout, stderr };
   } catch (err) {
     return { status: err.code ?? 1, stdout: err.stdout ?? "", stderr: err.stderr ?? String(err) };
+  }
+}
+
+// ── Server-mode parity ──────────────────────────────────────────────────────────────────
+// The same templates that `dev`-run, but executed through the SELF-HOSTED server engine:
+// `boardwalk build` each → boot `boardwalk-server` over a mounted workflows dir → trigger via
+// the JSON API → assert the same expected output. Proves the self-host deploy path (mode 2),
+// not just `dev` (mode 1). Skipped unless BOARDWALK_SERVER names the boardwalk-server binary
+// (e.g. installed from @boardwalk-labs/engine); the hosted-platform mode is tested platform-side.
+
+async function pollRunToTerminal(baseUrl, runId, timeoutMs = 60_000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const res = await fetch(`${baseUrl}/api/runs/${runId}`);
+    if (res.ok) {
+      const { run } = await res.json();
+      if (run && ["completed", "failed", "cancelled"].includes(run.status)) return run;
+    }
+    await new Promise((r) => setTimeout(r, 300));
+  }
+  return null;
+}
+
+async function runServerParity(harnessUrl) {
+  const serverCmd = (process.env.BOARDWALK_SERVER ?? "").split(" ").filter(Boolean);
+  const templates = registry.templates.filter((t) => t.dev !== undefined);
+  if (serverCmd.length === 0) {
+    console.log("\nserver-mode parity — skipped (set BOARDWALK_SERVER to the boardwalk-server binary)");
+    return;
+  }
+  console.log("\nserver-mode parity");
+
+  const dataDir = mkdtempSync(join(tmpdir(), "bw-harness-data-"));
+  const workflowsDir = mkdtempSync(join(tmpdir(), "bw-harness-flows-"));
+  const built = [];
+  for (const t of templates) {
+    const pkgDir = join(templatesDir, t.name, t.packages[0]);
+    const res = await runCli(["build", pkgDir, "--out", join(workflowsDir, `${t.name}.mjs`)]);
+    if (res.status === 0) built.push(t);
+    else fail(`server: build ${t.name} failed:\n${(res.stderr || res.stdout || "").trim()}`);
+  }
+
+  const [cmd, ...prefix] = serverCmd;
+  const child = spawn(cmd, prefix, {
+    env: {
+      ...process.env,
+      BOARDWALK_DATA_DIR: dataDir,
+      BOARDWALK_WORKFLOWS_DIR: workflowsDir,
+      BOARDWALK_HOST: "127.0.0.1",
+      BOARDWALK_PORT: "0", // ephemeral; the resolved port is read from the startup log
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  let log = "";
+  child.stdout.on("data", (d) => (log += d));
+  child.stderr.on("data", (d) => (log += d));
+
+  try {
+    const baseUrl = await new Promise((res, rej) => {
+      const deadline = Date.now() + 20_000;
+      const tick = setInterval(() => {
+        const m = /listening on (http:\/\/127\.0\.0\.1:\d+)/.exec(log);
+        if (m) {
+          clearInterval(tick);
+          res(m[1]);
+        } else if (Date.now() > deadline) {
+          clearInterval(tick);
+          rej(new Error(`server did not start within 20s:\n${log}`));
+        }
+      }, 100);
+    });
+
+    for (const t of built) {
+      const input = JSON.parse(JSON.stringify(t.dev.input).replaceAll("{{harnessUrl}}", harnessUrl));
+      const post = await fetch(`${baseUrl}/api/workflows/${t.name}/runs`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ input }),
+      });
+      if (!post.ok) {
+        fail(`server: trigger ${t.name} → HTTP ${post.status}`);
+        continue;
+      }
+      const { run } = await post.json();
+      const final = await pollRunToTerminal(baseUrl, run.id);
+      if (final === null) {
+        fail(`server: ${t.name} did not reach a terminal status in time`);
+      } else if (final.status !== "completed") {
+        fail(`server: ${t.name} ${final.status}: ${final.error?.message ?? ""}`);
+      } else if (
+        t.dev.expectOutputContains !== undefined &&
+        !JSON.stringify(final.output).includes(t.dev.expectOutputContains)
+      ) {
+        const got = JSON.stringify(final.output).slice(0, 200);
+        fail(`server: ${t.name} output missing "${t.dev.expectOutputContains}": ${got}`);
+      } else {
+        ok(`server run ${t.name} completed with expected output`);
+      }
+    }
+  } catch (err) {
+    fail(`server-mode parity error: ${err.message}`);
+  } finally {
+    child.kill("SIGTERM");
+    rmSync(dataDir, { recursive: true, force: true });
+    rmSync(workflowsDir, { recursive: true, force: true });
   }
 }
 
@@ -140,6 +253,9 @@ try {
       }
     }
   }
+
+  // ── Server-mode parity (mode 2) — the same templates via the self-hosted server engine ──
+  await runServerParity(harnessUrl);
 } finally {
   server.close();
 }

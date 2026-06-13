@@ -45,8 +45,8 @@ Additions require: a distinct primitive or pattern not already covered, plus the
 ## 4. CI (the harness)
 
 - On every PR: each template is validated (`check`-equivalent) and **executed end-to-end** under the local engine with CI-provided env; asserts terminal status `completed` and a non-empty event stream.
-- **v0.1 status:** `harness/run.mjs` (zero-dep, `$BOARDWALK_CLI` or `boardwalk` on PATH) runs `boardwalk check` on every package, enforces registry ⇄ filesystem ⇄ `.env.example` consistency, and dev-executes the agent-free templates (`webhook-responder`, `long-watch`) against a local HTTP fixture. The agent templates join the dev battery when the local engine ships; until then they're covered by `check` + the scheduled platform battery.
-- On a schedule: the same battery against the Boardwalk platform via the public CLI path (deploy → run → assert), so platform parity regressions surface here.
+- **Modes exercised in CI:** `harness/run.mjs` (zero-dep) runs `boardwalk check` on every package, enforces registry ⇄ filesystem ⇄ `.env.example` consistency, then runs the agent-free templates (`webhook-responder`, `long-watch`) end-to-end under **both OSS engines**: `dev` (mode 1) via `boardwalk dev`, and the **self-hosted server** (mode 2) via `boardwalk build` → `boardwalk-server` over a workflows dir → trigger through the JSON API → assert the same expected output. The server leg runs when `$BOARDWALK_SERVER` names the binary (from `@boardwalk-labs/engine`); `$BOARDWALK_CLI` overrides the CLI. The agent templates need provider keys, so in CI they're covered by `check` and run end-to-end where keys are available.
+- The **hosted-platform** leg (mode 3) needs an account and is verified platform-side, not in OSS CI.
 - A template whose external dependency is flaky gets a recorded/stubbed variant for PR CI and keeps the live variant in the scheduled run — never a skipped test.
 
 ## 5. Ready to go public when
