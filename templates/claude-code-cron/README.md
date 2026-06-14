@@ -27,6 +27,6 @@ boardwalk run . --org <your-org>    # or trigger one run right now
 
 - The schedule lives in `meta` (the manifest), not in a separate scheduler config — version it
   with the code.
-- `secrets.get` is fail-closed: only names declared in `meta.secrets` resolve, and values never
-  appear in logs or model context.
+- `secrets.get` is fail-closed: only names declared in `permissions.secrets` resolve, and values
+  never appear in logs or model context.
 - `budget.max_duration_seconds` caps a runaway run.

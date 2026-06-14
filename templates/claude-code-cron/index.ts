@@ -13,7 +13,7 @@ export const meta = {
   name: "claude-code-cron",
   description: "Run a Claude Code prompt on a schedule — zero-rewrite hosting for `claude -p`.",
   triggers: [{ kind: "cron", expr: "0 9 * * 1-5", timezone: "America/New_York" }],
-  secrets: [{ name: "ANTHROPIC_API_KEY" }],
+  permissions: { secrets: [{ name: "ANTHROPIC_API_KEY" }] },
   budget: { max_duration_seconds: 900 },
 } satisfies WorkflowMeta;
 

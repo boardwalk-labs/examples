@@ -10,7 +10,7 @@ export const meta = {
   name: "morning-digest",
   description: "Summarize my open GitHub issues every weekday morning.",
   triggers: [{ kind: "cron", expr: "0 9 * * 1-5", timezone: "America/New_York" }],
-  secrets: [{ name: "GITHUB_TOKEN" }],
+  permissions: { secrets: [{ name: "GITHUB_TOKEN" }] },
   budget: { max_usd: 0.5, max_duration_seconds: 300 },
 } satisfies WorkflowMeta;
 
