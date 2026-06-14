@@ -9,6 +9,10 @@ on:
     # parity leg needs an account and is verified platform-side, not here — see SPEC §4.
     - cron: "17 9 * * *"
 
+env:
+  # Run JS actions on Node 24 now (GitHub forces this 2026-06-16); a no-op once it is the default.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   harness:
     runs-on: ubuntu-latest
