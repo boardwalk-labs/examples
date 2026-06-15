@@ -7,7 +7,8 @@
 import { phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "classify-and-act",
+  slug: "classify-and-act",
+  title: "Classify And Act",
   description: "Classify an incoming message, then route it to a tailored handler.",
   triggers: [{ kind: "manual" }],
   input_schema: {

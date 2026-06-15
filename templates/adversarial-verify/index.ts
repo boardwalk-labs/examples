@@ -8,7 +8,8 @@
 import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "adversarial-verify",
+  slug: "adversarial-verify",
+  title: "Adversarial Verify",
   description: "Extract a document's claims and adversarially verify each one in parallel.",
   triggers: [{ kind: "manual" }],
   input_schema: {

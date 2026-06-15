@@ -6,7 +6,8 @@
 import { agent, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "hello-routine",
+  slug: "hello-routine",
+  title: "Hello Routine",
   description: "The smallest useful workflow: one agent call, one output.",
   triggers: [{ kind: "manual" }],
 } satisfies WorkflowMeta;

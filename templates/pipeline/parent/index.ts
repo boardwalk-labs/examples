@@ -7,7 +7,8 @@
 import { phase, input, output, workflows, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "pipeline",
+  slug: "pipeline",
+  title: "Pipeline",
   description: "Durably fan URLs through the pipeline-child workflow and aggregate the summaries.",
   triggers: [{ kind: "manual" }],
   input_schema: {

@@ -6,7 +6,8 @@
 import { agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "pipeline-child",
+  slug: "pipeline-child",
+  title: "Pipeline Child",
   description: "Fetch one URL and summarize it (the pipeline's unit of work).",
   triggers: [{ kind: "manual" }],
   input_schema: {

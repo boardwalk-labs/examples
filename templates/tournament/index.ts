@@ -8,7 +8,8 @@
 import { phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "tournament",
+  slug: "tournament",
+  title: "Tournament",
   description: "Rank items by agent-judged pairwise comparison (merge sort holds the bracket).",
   triggers: [{ kind: "manual" }],
   input_schema: {

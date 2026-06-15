@@ -10,7 +10,8 @@ import { promisify } from "node:util";
 import { output, secrets, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "claude-code-cron",
+  slug: "claude-code-cron",
+  title: "Claude Code Cron",
   description: "Run a Claude Code prompt on a schedule — zero-rewrite hosting for `claude -p`.",
   triggers: [{ kind: "cron", expr: "0 9 * * 1-5", timezone: "America/New_York" }],
   permissions: { secrets: [{ name: "ANTHROPIC_API_KEY" }] },

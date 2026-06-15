@@ -7,7 +7,8 @@
 import { phase, agent, output, secrets, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "morning-digest",
+  slug: "morning-digest",
+  title: "Morning Digest",
   description: "Summarize my open GitHub issues every weekday morning.",
   triggers: [{ kind: "cron", expr: "0 9 * * 1-5", timezone: "America/New_York" }],
   permissions: { secrets: [{ name: "GITHUB_TOKEN" }] },

@@ -7,7 +7,8 @@
 import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "fan-out-judge",
+  slug: "fan-out-judge",
+  title: "Fan Out Judge",
   description: "Draft an answer three ways in parallel, then judge the best one.",
   triggers: [{ kind: "manual" }],
   input_schema: {

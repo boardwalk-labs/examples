@@ -11,7 +11,8 @@
 import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "quarantine-triage",
+  slug: "quarantine-triage",
+  title: "Quarantine Triage",
   description: "Classify untrusted items with no-privilege readers; act in trusted code.",
   triggers: [{ kind: "manual" }],
   input_schema: {

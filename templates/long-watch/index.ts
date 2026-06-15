@@ -7,7 +7,8 @@
 import { phase, input, output, sleep, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "long-watch",
+  slug: "long-watch",
+  title: "Long Watch",
   description: "Probe a URL until it's healthy or the deadline passes.",
   triggers: [{ kind: "manual" }],
   input_schema: {

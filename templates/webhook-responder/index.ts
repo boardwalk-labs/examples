@@ -7,7 +7,8 @@
 import { phase, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "webhook-responder",
+  slug: "webhook-responder",
+  title: "Webhook Responder",
   description: "Triage incoming webhook events: decide page / ticket / ignore.",
   triggers: [{ kind: "webhook", auth: "token" }],
   input_schema: {

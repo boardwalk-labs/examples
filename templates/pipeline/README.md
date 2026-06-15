@@ -13,7 +13,7 @@ pipeline/
   child/    — "pipeline-child": fetch one URL, summarize it
 ```
 
-## Deploy (child first — the parent calls it by name)
+## Deploy (child first — the parent calls it by slug)
 
 ```sh
 boardwalk deploy child  --org <your-org>
@@ -28,7 +28,7 @@ boardwalk run parent --org <your-org> \
   parent crashes and restarts, the idempotent call re-attaches to the same child instead of
   running it twice.
 - **Independence:** the child is also a normal workflow — run it alone, give it its own
-  triggers, evolve it separately. The parent only depends on its name and input shape.
+  triggers, evolve it separately. The parent only depends on its slug and input shape.
 
 Want the fan-out concurrent? Wrap the calls in `parallel()` — but sequential is the right
 default until the child is proven idempotent against your real side effects.

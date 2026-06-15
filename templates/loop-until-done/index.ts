@@ -8,7 +8,8 @@
 import { phase, agent, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "loop-until-done",
+  slug: "loop-until-done",
+  title: "Loop Until Done",
   description: "Spawn finder agents until they stop turning up anything new.",
   triggers: [{ kind: "manual" }],
   input_schema: {

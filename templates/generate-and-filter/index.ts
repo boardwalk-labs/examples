@@ -7,7 +7,8 @@
 import { phase, agent, input, output, parallel, type WorkflowMeta } from "@boardwalk-labs/workflow";
 
 export const meta = {
-  name: "generate-and-filter",
+  slug: "generate-and-filter",
+  title: "Generate And Filter",
   description: "Generate ideas from several angles, dedupe, then keep the best by a rubric.",
   triggers: [{ kind: "manual" }],
   input_schema: {
