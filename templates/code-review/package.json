@@ -1,0 +1,8 @@
+{
+  "name": "code-review",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@boardwalk-labs/workflow": "^0.1.0"
+  }
+}

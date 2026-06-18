@@ -54,6 +54,21 @@
       "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
+      "name": "code-review",
+      "description": "Review a diff with a reusable reviewer skill — a checklist loaded on demand (progressive disclosure).",
+      "tags": ["pattern", "skills", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": [
+        "index.ts",
+        "package.json",
+        ".gitignore",
+        "README.md",
+        "skills/reviewer/SKILL.md",
+        "skills/reviewer/checklist.md"
+      ]
+    },
+    {
       "name": "adversarial-verify",
       "description": "Extract a document's claims and refute each with its own skeptical agent.",
       "tags": ["pattern", "verification", "parallel", "agent"],
