@@ -101,6 +101,14 @@
       "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
+      "name": "loop-with-verify",
+      "description": "A loop that finds until dry, then a separate checker keeps only the verified findings.",
+      "tags": ["pattern", "loop", "verification", "agent"],
+      "secrets": [],
+      "packages": ["."],
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+    },
+    {
       "name": "quarantine-triage",
       "description": "Classify untrusted items with no-privilege readers; act on summaries in trusted code.",
       "tags": ["pattern", "security", "parallel", "agent"],
