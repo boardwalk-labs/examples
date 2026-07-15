@@ -64,6 +64,16 @@ the scheduled platform battery; they run under `dev` once the local engine ships
 A new template needs a primitive or pattern not already covered, the conventions above, and a
 green harness. Keep each template to one idea; don't bundle unrelated features.
 
+## The Boardwalk repos
+
+- [`boardwalk`](https://github.com/boardwalk-labs/boardwalk) — the open-source single-node engine: cron scheduling, webhooks, durable runs, run history
+- [`sdk`](https://github.com/boardwalk-labs/sdk) — `@boardwalk-labs/workflow`, the TypeScript API a workflow program imports
+- [`cli`](https://github.com/boardwalk-labs/cli) — `boardwalk`: scaffold, validate, run locally, deploy
+- [`plugins`](https://github.com/boardwalk-labs/plugins) — skills + MCP server for Claude Code, Codex, Cursor, OpenClaw, OpenCode
+- [`runner`](https://github.com/boardwalk-labs/runner) — self-hosted runner: your machines execute hosted-scheduled runs
+
+Hosted platform and docs: [boardwalk.sh](https://boardwalk.sh).
+
 ## License
 
 MIT
