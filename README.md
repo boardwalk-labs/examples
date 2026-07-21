@@ -36,7 +36,9 @@ with their own context windows so the work gets finished, verified, and kept on-
 | [`generate-and-filter`](./templates/generate-and-filter) | Brainstorm wide in parallel, dedupe, keep the best by a rubric |
 | [`tournament`](./templates/tournament) | Rank items by agent-judged pairwise comparison (merge sort holds the bracket) |
 | [`loop-until-done`](./templates/loop-until-done) | Loop spawning finders until nothing new turns up |
+| [`loop-with-verify`](./templates/loop-with-verify) | Loop until finders run dry, then a separate checker keeps only the verified findings |
 | [`quarantine-triage`](./templates/quarantine-triage) | Read untrusted content with no-privilege agents; act in trusted code |
+| [`code-review`](./templates/code-review) | Review a diff with a reusable reviewer skill loaded on demand (progressive disclosure) |
 
 ## Conventions (every template)
 
@@ -69,7 +71,7 @@ green harness. Keep each template to one idea; don't bundle unrelated features.
 - [`boardwalk`](https://github.com/boardwalk-labs/boardwalk) — the open-source single-node engine: cron scheduling, webhooks, durable runs, run history
 - [`sdk`](https://github.com/boardwalk-labs/sdk) — `@boardwalk-labs/workflow`, the TypeScript API a workflow program imports
 - [`cli`](https://github.com/boardwalk-labs/cli) — `boardwalk`: scaffold, validate, run locally, deploy
-- [`plugins`](https://github.com/boardwalk-labs/plugins) — skills + MCP server for Claude Code, Codex, Cursor, OpenClaw, OpenCode
+- [`plugins`](https://github.com/boardwalk-labs/plugins) — coding-agent skills (Claude Code, Codex, Cursor, OpenClaw, OpenCode) + a control-plane MCP server
 - [`runner`](https://github.com/boardwalk-labs/runner) — self-hosted runner: your machines execute hosted-scheduled runs
 
 Hosted platform and docs: [boardwalk.sh](https://boardwalk.sh).
