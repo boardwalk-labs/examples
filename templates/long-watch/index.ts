@@ -2,7 +2,7 @@
 //
 // Watch a URL until it comes back healthy or a deadline passes. The run HOLDS across each
 // sleep — locals survive, no checkpoint dance, no state machine — and `budget` caps how long
-// a forgotten watch can run. Agent-free, so it runs end-to-end under `boardwalk dev` today.
+// a forgotten watch can run. Agent-free, so a run costs no model tokens.
 
 import { phase, input, output, sleep, type WorkflowMeta } from "@boardwalk-labs/workflow";
 

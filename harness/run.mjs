@@ -5,10 +5,9 @@
 //
 // For each registry entry:
 //   1. `boardwalk check <package>` must pass (manifest schema + compile), for every package.
-//   2. Registry/filesystem consistency: every templates/ dir is registered and vice versa;
-//      every registered secret appears in the template's .env.example.
-//   3. Entries with a `dev` block are executed end-to-end via `boardwalk dev` against a local
-//      HTTP fixture server; exit 0 + expected output required.
+//   2. Registry/filesystem consistency: every templates/ dir is registered and vice versa.
+//   3. Entries with an `e2e` block are executed end-to-end through the self-hosted server
+//      engine against a local HTTP fixture server; expected output required.
 //
 // CLI resolution: $BOARDWALK_CLI (e.g. "node /path/to/bin/boardwalk.js") or `boardwalk` on PATH.
 // Zero dependencies — plain Node.
@@ -16,7 +15,6 @@
 import { execFile, spawn } from "node:child_process";
 import { promisify } from "node:util";
 import {
-  existsSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
@@ -58,7 +56,7 @@ function listFiles(dir, prefix = "") {
 }
 
 // Async on purpose: a blocking spawn would freeze this process's event loop, and the fixture
-// HTTP server below must keep answering while a `dev` run probes it.
+// HTTP server below must keep answering while a template run probes it.
 async function runCli(args) {
   const [cmd, ...prefix] = cli;
   try {
@@ -73,10 +71,10 @@ async function runCli(args) {
 }
 
 // ── Server-mode parity ──────────────────────────────────────────────────────────────────
-// The same templates that `dev`-run, but executed through the SELF-HOSTED server engine:
+// The templates with an `e2e` block, executed through the SELF-HOSTED server engine:
 // `boardwalk build` each → boot `boardwalk-server` over a mounted workflows dir → trigger via
-// the JSON API → assert the same expected output. Proves the self-host deploy path (mode 2),
-// not just `dev` (mode 1). Skipped unless BOARDWALK_SERVER names the boardwalk-server binary
+// the JSON API → assert the expected output. Proves the self-host deploy path. Skipped unless
+// BOARDWALK_SERVER names the boardwalk-server binary
 // (e.g. installed from @boardwalk-labs/engine); the hosted-platform mode is tested platform-side.
 
 async function pollRunToTerminal(baseUrl, runId, timeoutMs = 60_000) {
@@ -94,7 +92,7 @@ async function pollRunToTerminal(baseUrl, runId, timeoutMs = 60_000) {
 
 async function runServerParity(harnessUrl) {
   const serverCmd = (process.env.BOARDWALK_SERVER ?? "").split(" ").filter(Boolean);
-  const templates = registry.templates.filter((t) => t.dev !== undefined);
+  const templates = registry.templates.filter((t) => t.e2e !== undefined);
   if (serverCmd.length === 0) {
     console.log("\nserver-mode parity — skipped (set BOARDWALK_SERVER to the boardwalk-server binary)");
     return;
@@ -142,7 +140,7 @@ async function runServerParity(harnessUrl) {
     });
 
     for (const t of built) {
-      const input = JSON.parse(JSON.stringify(t.dev.input).replaceAll("{{harnessUrl}}", harnessUrl));
+      const input = JSON.parse(JSON.stringify(t.e2e.input).replaceAll("{{harnessUrl}}", harnessUrl));
       const post = await fetch(`${baseUrl}/api/workflows/${t.name}/runs`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -159,11 +157,11 @@ async function runServerParity(harnessUrl) {
       } else if (final.status !== "completed") {
         fail(`server: ${t.name} ${final.status}: ${final.error?.message ?? ""}`);
       } else if (
-        t.dev.expectOutputContains !== undefined &&
-        !JSON.stringify(final.output).includes(t.dev.expectOutputContains)
+        t.e2e.expectOutputContains !== undefined &&
+        !JSON.stringify(final.output).includes(t.e2e.expectOutputContains)
       ) {
         const got = JSON.stringify(final.output).slice(0, 200);
-        fail(`server: ${t.name} output missing "${t.dev.expectOutputContains}": ${got}`);
+        fail(`server: ${t.name} output missing "${t.e2e.expectOutputContains}": ${got}`);
       } else {
         ok(`server run ${t.name} completed with expected output`);
       }
@@ -217,16 +215,6 @@ try {
       if (unlisted.length > 0) fail(`disk files not in registry: ${unlisted.join(", ")}`);
     }
 
-    // Secrets documented in .env.example (per package for multi-package templates).
-    for (const secret of t.secrets) {
-      const documented = t.packages.some((pkg) => {
-        const envExample = join(dir, pkg, ".env.example");
-        return existsSync(envExample) && readFileSync(envExample, "utf8").includes(secret);
-      });
-      if (documented) ok(`secret ${secret} documented in .env.example`);
-      else fail(`secret ${secret} missing from .env.example`);
-    }
-
     // `boardwalk check` per package.
     for (const pkg of t.packages) {
       const pkgDir = join(dir, pkg);
@@ -234,29 +222,9 @@ try {
       if (res.status === 0) ok(`check ${pkg === "." ? "" : pkg + " "}passed`);
       else fail(`check ${pkg} failed:\n${(res.stderr || res.stdout || "").trim()}`);
     }
-
-    // End-to-end `boardwalk dev` for templates that support it today.
-    if (t.dev !== undefined) {
-      const input = JSON.stringify(t.dev.input).replaceAll("{{harnessUrl}}", harnessUrl);
-      const pkgDir = join(dir, t.packages[0]);
-      const res = await runCli(["dev", pkgDir, "--input", input, "--stream", "output"]);
-      const stdout = (res.stdout ?? "").trim();
-      if (res.status !== 0) {
-        fail(`dev run failed (exit ${res.status}):\n${(res.stderr || stdout).trim()}`);
-      } else if (stdout.length === 0) {
-        fail("dev run produced no output");
-      } else if (
-        t.dev.expectOutputContains !== undefined &&
-        !stdout.includes(t.dev.expectOutputContains)
-      ) {
-        fail(`dev output missing "${t.dev.expectOutputContains}": ${stdout.slice(0, 200)}`);
-      } else {
-        ok(`dev run completed with expected output`);
-      }
-    }
   }
 
-  // ── Server-mode parity (mode 2) — the same templates via the self-hosted server engine ──
+  // ── Server-mode parity — the e2e templates via the self-hosted server engine ──
   await runServerParity(harnessUrl);
 } finally {
   server.close();

@@ -15,7 +15,7 @@
       "tags": ["migration", "cron", "claude-code"],
       "secrets": ["ANTHROPIC_API_KEY"],
       "packages": ["."],
-      "files": ["index.ts", "package.json", ".env.example", ".gitignore", "README.md"]
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
       "name": "morning-digest",
@@ -23,7 +23,7 @@
       "tags": ["cron", "secrets", "agent"],
       "secrets": ["GITHUB_TOKEN"],
       "packages": ["."],
-      "files": ["index.ts", "package.json", ".env.example", ".gitignore", "README.md"]
+      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
     },
     {
       "name": "webhook-responder",
@@ -32,7 +32,7 @@
       "secrets": [],
       "packages": ["."],
       "files": ["index.ts", "package.json", ".gitignore", "README.md"],
-      "dev": {
+      "e2e": {
         "input": { "event": "deploy_failed", "service": "api", "severity": "critical" },
         "expectOutputContains": "page"
       }
@@ -139,7 +139,7 @@
       "secrets": [],
       "packages": ["."],
       "files": ["index.ts", "package.json", ".gitignore", "README.md"],
-      "dev": {
+      "e2e": {
         "input": { "url": "{{harnessUrl}}", "deadlineSeconds": 10, "intervalSeconds": 1 },
         "expectOutputContains": "healthy"
       }

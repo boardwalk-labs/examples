@@ -2,7 +2,7 @@
 //
 // POST a JSON payload at the workflow's webhook URL and it triages the event: page someone,
 // open a ticket, or just log it. Deliberately agent-free — it demonstrates the trigger + input
-// path, and it runs end-to-end under `boardwalk dev` today.
+// path, and a run costs no model tokens.
 
 import { phase, input, output, type WorkflowMeta } from "@boardwalk-labs/workflow";
 

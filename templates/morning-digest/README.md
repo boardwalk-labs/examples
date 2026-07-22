@@ -11,8 +11,8 @@ workflows stay debuggable and injection-resistant.
 
 1. Copy this directory (or `boardwalk init digest --template morning-digest`).
 2. Create a GitHub token with issue read access.
-3. Provide `GITHUB_TOKEN`: locally, copy `.env.example` → `.env`; on hosted Boardwalk, add the
-   secret in the dashboard.
+3. Provide `GITHUB_TOKEN`: `boardwalk secrets set GITHUB_TOKEN --org <your-org>`
+   (or add the secret in the dashboard).
 4. Adjust the cron `expr` / `timezone` if 9am ET isn't your morning.
 
 ## Run

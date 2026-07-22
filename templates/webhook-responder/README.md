@@ -2,14 +2,18 @@
 
 A webhook-triggered workflow: POST a JSON event at its URL, it triages — page, ticket, or ignore
 — and outputs the decision. Agent-free on purpose: this template demonstrates the **trigger +
-input** path, and it runs fully under `boardwalk dev` today.
+input** path, and a run costs no model tokens.
 
-## Try it locally, right now
+## Try it, right now
 
 ```sh
-boardwalk dev . --input '{"event":"deploy_failed","service":"api","severity":"high"}'
-boardwalk dev . --input '{"event":"heartbeat","severity":"low"}' --stream output | jq .action
+boardwalk check .   # validate — no account needed
+boardwalk run . --org <your-org> --input '{"event":"deploy_failed","service":"api","severity":"high"}'
+boardwalk run . --org <your-org> --input '{"event":"heartbeat","severity":"low"}'
 ```
+
+`run` deploys, triggers a hosted run, and waits, streaming the decision back. Inspect any run
+later with `boardwalk runs <runId> --logs`.
 
 ## Deploy
 

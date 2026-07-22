@@ -22,7 +22,7 @@ export const meta = {
 const PROMPT = `Check the open issues on my repo that are labeled "bug" and have no assignee.
 For each, write a one-line triage suggestion. End with the single most urgent one.`;
 
-// The secret lives in Boardwalk's vault (or your .env locally) — the program fetches it
+// The secret lives in Boardwalk's vault — the program fetches it
 // and hands it to the subprocess. It never appears in logs or model context.
 const anthropicKey = await secrets.get("ANTHROPIC_API_KEY");
 

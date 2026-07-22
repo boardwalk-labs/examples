@@ -4,10 +4,10 @@ Probe a URL until it's healthy or a deadline passes — the **hold-and-pay** pat
 simply `sleep`s between probes and stays alive across the waits. Your locals (`attempts`, the
 deadline) survive; there's no checkpoint dance, no requeue, no state machine.
 
-Agent-free, so it runs end-to-end under `boardwalk dev` today:
+Agent-free, so a first run costs no model tokens:
 
 ```sh
-boardwalk dev . --input '{"url":"https://example.com","deadlineSeconds":10,"intervalSeconds":2}'
+boardwalk run . --org <your-org> --input '{"url":"https://example.com","deadlineSeconds":10,"intervalSeconds":2}'
 ```
 
 ## Deploy

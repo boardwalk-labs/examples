@@ -1,10 +1,10 @@
 # examples
 
 Working, copyable [Boardwalk](https://boardwalk.sh) workflow templates. Each one is a standalone
-project: copy it out (or `boardwalk init <dir> --template <name>`), fill in `.env`, run.
+project: copy it out (or `boardwalk init <dir> --template <name>`), set its secrets, run.
 
-**Every template is a parity test.** It must run unmodified under `boardwalk dev`, the
-self-hosted Boardwalk engine, and the hosted Boardwalk platform — the CI harness in this repo enforces it. A
+**Every template is a parity test.** It must run unmodified under the self-hosted Boardwalk
+engine and the hosted Boardwalk platform — the CI harness in this repo enforces it. A
 template that needs per-engine edits is rejected.
 
 ## Templates
@@ -44,9 +44,11 @@ with their own context windows so the work gets finished, verified, and kept on-
 
 - `index.ts` — the whole workflow, **as a script**: a pure-literal `meta` export, then the program as the module body (top-level await throughout). Importing the file is running it.
 - `agent()` calls name **no model** by default — the default `boardwalk` provider routes
-  automatically on every engine (locally via `boardwalk login`); a comment shows the
+  automatically on every engine; a comment shows the
   explicit-model form. BYO keys are an explicit `provider`, never a fallback.
-- `.env.example` documents every secret the template needs. **No real secrets, ever.**
+- Every secret a template needs is declared in `meta.permissions.secrets` and in the registry
+  `secrets` list; you set the value with `boardwalk secrets set NAME --org <your-org>`.
+  **No real secrets, ever.**
 - Minimal dependencies — `@boardwalk-labs/workflow` and the platform, nothing else unless the
   template is *about* a dependency.
 
@@ -57,9 +59,10 @@ node harness/run.mjs                 # uses `boardwalk` from PATH
 BOARDWALK_CLI="node ../cli/bin/boardwalk.js" node harness/run.mjs
 ```
 
-It validates every template (`boardwalk check`), checks registry/.env.example consistency, and
-executes the agent-free templates end-to-end via `boardwalk dev`. (Agent templates execute in
-the scheduled platform battery; they run under `dev` once the local engine ships.)
+It validates every template (`boardwalk check`), checks registry/filesystem consistency, and
+executes the agent-free templates end-to-end through the self-hosted server engine (set
+`BOARDWALK_SERVER` to the `boardwalk-server` binary). (Agent templates execute in the
+scheduled platform battery.)
 
 ## Contributing a template
 
@@ -70,7 +73,7 @@ green harness. Keep each template to one idea; don't bundle unrelated features.
 
 - [`boardwalk`](https://github.com/boardwalk-labs/boardwalk) — the open-source single-node engine: cron scheduling, webhooks, durable runs, run history
 - [`sdk-typescript`](https://github.com/boardwalk-labs/sdk-typescript) — `@boardwalk-labs/workflow`, the TypeScript API a workflow program imports
-- [`cli`](https://github.com/boardwalk-labs/cli) — `boardwalk`: scaffold, validate, run locally, deploy
+- [`cli`](https://github.com/boardwalk-labs/cli) — `boardwalk`: scaffold, validate, run, deploy
 - [`plugins`](https://github.com/boardwalk-labs/plugins) — coding-agent skills (Claude Code, Codex, Cursor, OpenClaw, OpenCode) + a control-plane MCP server
 - [`runner`](https://github.com/boardwalk-labs/runner) — self-hosted runner: your machines execute hosted-scheduled runs
 

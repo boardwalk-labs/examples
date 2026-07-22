@@ -12,8 +12,8 @@ There is deliberately nothing clever here. The program shells out to the Claude 
 1. Copy this directory (or `boardwalk init my-cron --template claude-code-cron`).
 2. Replace `PROMPT` with the prompt you run today.
 3. Adjust the cron `expr` / `timezone` in `meta.triggers`.
-4. Provide `ANTHROPIC_API_KEY`: locally, copy `.env.example` → `.env`; on hosted Boardwalk, add
-   the secret in the dashboard.
+4. Provide `ANTHROPIC_API_KEY`: `boardwalk secrets set ANTHROPIC_API_KEY --org <your-org>`
+   (or add the secret in the dashboard).
 
 ## Run
 
