@@ -12,7 +12,7 @@ boardwalk run . --org <your-org> --input '{"event":"deploy_failed","service":"ap
 boardwalk run . --org <your-org> --input '{"event":"heartbeat","severity":"low"}'
 ```
 
-`run` deploys, triggers a hosted run, and waits, streaming the decision back. Inspect any run
+`run` deploys, triggers a hosted run, and waits, printing the decision back. Inspect any run
 later with `boardwalk runs <runId> --logs`.
 
 ## Deploy

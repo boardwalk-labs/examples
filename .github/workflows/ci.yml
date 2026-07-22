@@ -25,10 +25,10 @@ jobs:
         id: install
         # Both come from npm. The CLI's `build` and the engine's workflows-dir boot-load power the
         # server-mode leg; don't hard-fail on a 404 — the harness is skipped below until both
-        # publish, at which point this install succeeds and both modes run with no further change.
+        # publish, at which point this install succeeds and the harness runs with no further change.
         continue-on-error: true
         run: npm install -g @boardwalk-labs/cli @boardwalk-labs/engine
-      - name: Run the template harness (dev + server modes)
+      - name: Run the template harness (server mode)
         if: steps.install.outcome == 'success'
         env:
           BOARDWALK_SERVER: boardwalk-server
