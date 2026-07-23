@@ -15,10 +15,10 @@ Start with the primitives — one feature each — then compose them into the mu
 
 | Template | What it demonstrates |
 | --- | --- |
-| [`hello-routine`](./templates/hello-routine) | The minimal workflow: manual trigger, one `agent()` call, `output()` |
+| [`hello-routine`](./templates/hello-routine) | The minimal workflow: manual trigger, one `agent()` call, one returned output |
 | [`claude-code-cron`](./templates/claude-code-cron) | Running an existing `claude -p` command-line script on a schedule, unchanged |
 | [`morning-digest`](./templates/morning-digest) | Cron + `secrets.get` + agent summarization |
-| [`webhook-responder`](./templates/webhook-responder) | Webhook trigger + typed `input` + conditional triage |
+| [`webhook-responder`](./templates/webhook-responder) | Webhook trigger + a typed `run(input)` + conditional triage |
 | [`pipeline`](./templates/pipeline) | `workflows.call` composition: a parent durably fanning work through a child |
 | [`long-watch`](./templates/long-watch) | `sleep({ until })` + budget caps over a long-running watch |
 
@@ -42,12 +42,18 @@ with their own context windows so the work gets finished, verified, and kept on-
 
 ## Conventions (every template)
 
-- `index.ts` — the whole workflow, **as a script**: a pure-literal `meta` export, then the program as the module body (top-level await throughout). Importing the file is running it.
+- **Two files are the workflow.** `workflow.jsonc` is the deployment descriptor (slug, triggers,
+  permissions, budget — the policy the control plane reads as data), and `src/index.ts` exports the
+  program: `export default async function run(input, context)`. The trigger's payload is `input`,
+  and whatever `run` returns is the run's output.
+- **Native types are the I/O contract.** Templates type `input` and the return value where the
+  workflow has a shape — the deploy derives their schemas for the dashboard's run form and for
+  callers. A bare `run(input)` (no annotation) is the untyped floor.
 - `agent()` calls name **no model** by default — the default `boardwalk` provider routes
   automatically on every engine; a comment shows the
   explicit-model form. BYO keys are an explicit `provider`, never a fallback.
-- Every secret a template needs is declared in `meta.permissions.secrets` and in the registry
-  `secrets` list; you set the value with `boardwalk secrets set NAME --org <your-org>`.
+- Every secret a template needs is declared in the descriptor's `permissions.secrets` and in the
+  registry `secrets` list; you set the value with `boardwalk secrets set NAME --org <your-org>`.
   **No real secrets, ever.**
 - Minimal dependencies — `@boardwalk-labs/workflow` and the platform, nothing else unless the
   template is *about* a dependency.

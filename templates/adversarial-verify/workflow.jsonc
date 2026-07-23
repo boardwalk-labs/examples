@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "adversarial-verify",
+  "title": "Adversarial Verify",
+  "description": "Extract a document's claims and adversarially verify each one in parallel.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 2 },
+}

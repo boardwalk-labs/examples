@@ -12,9 +12,11 @@ A new template needs **a primitive or pattern not already covered** by the table
   Boardwalk platform. A template that needs per-engine edits is rejected.
 - **One idea per template.** Resist the kitchen sink — if it demonstrates two patterns, it's
   probably two templates (or one too many).
-- **Conventions:** pure-literal `meta` + the program as the top-level module body (a script — no wrapper function); `agent()` names no model by
+- **Conventions:** a `workflow.jsonc` descriptor + `src/index.ts` exporting a default
+  `run(input, context)` function, with native input/return types wherever the workflow has a
+  shape (the deploy derives their schemas); `agent()` names no model by
   default (a comment shows the explicit form); every secret is declared in
-  `meta.permissions.secrets` and the registry `secrets` list;
+  the descriptor's `permissions.secrets` and the registry `secrets` list;
   dependencies only when the template is *about* the dependency.
 - **No secrets, ever.** Users set values with `boardwalk secrets set`; CI provides real values
   from its own store. A leaked credential fails review even if revoked.

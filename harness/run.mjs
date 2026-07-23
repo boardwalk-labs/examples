@@ -104,7 +104,8 @@ async function runServerParity(harnessUrl) {
   const built = [];
   for (const t of templates) {
     const pkgDir = join(templatesDir, t.name, t.packages[0]);
-    const res = await runCli(["build", pkgDir, "--out", join(workflowsDir, `${t.name}.mjs`)]);
+    // `boardwalk build` emits the content-addressed `.tgz` artifact (the function-model format).
+    const res = await runCli(["build", pkgDir, "--out", join(workflowsDir, `${t.name}.tgz`)]);
     if (res.status === 0) built.push(t);
     else fail(`server: build ${t.name} failed:\n${(res.stderr || res.stdout || "").trim()}`);
   }

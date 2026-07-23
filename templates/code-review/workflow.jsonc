@@ -1,0 +1,9 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "code-review",
+  "title": "Code Review",
+  "description": "Review a diff against a reusable reviewer skill (a checklist loaded on demand).",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 1 },
+  // skills/** ships with the package by convention — no `files` entry needed.
+}

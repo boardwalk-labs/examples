@@ -11,7 +11,7 @@ There is deliberately nothing clever here. The program shells out to the Claude 
 
 1. Copy this directory (or `boardwalk init my-cron --template claude-code-cron`).
 2. Replace `PROMPT` with the prompt you run today.
-3. Adjust the cron `expr` / `timezone` in `meta.triggers`.
+3. Adjust the cron `expr` / `timezone` in `workflow.jsonc`.
 4. Provide `ANTHROPIC_API_KEY`: `boardwalk secrets set ANTHROPIC_API_KEY --org <your-org>`
    (or add the secret in the dashboard).
 
@@ -25,8 +25,8 @@ boardwalk run . --org <your-org>    # or trigger one run right now
 
 ## Notes
 
-- The schedule lives in `meta` (the manifest), not in a separate scheduler config — version it
-  with the code.
+- The schedule lives in `workflow.jsonc` (the deployment descriptor), not in a separate
+  scheduler config — version it with the code.
 - `secrets.get` is fail-closed: only names declared in `permissions.secrets` resolve, and values
   never appear in logs or model context.
-- `budget.max_duration_seconds` caps a runaway run.
+- `budget.max_compute_seconds` caps a runaway run (a breach pauses for approval).

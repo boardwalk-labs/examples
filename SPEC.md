@@ -13,8 +13,10 @@ Working, copyable workflows that (a) get a new user from zero to a green run in 
 ```
 templates/
   <template-name>/
-    index.ts          — the workflow program
+    workflow.jsonc    — the deployment descriptor (slug, triggers, permissions, budget)
+    src/index.ts      — the workflow program: `export default async function run(input, context)`
     package.json      — name, deps (minimal), boardwalk template metadata
+    tsconfig.json     — editor/typecheck config (the scaffold shape)
     README.md         — what it does, setup in <5 steps, how to run (check / run / self-host)
 registry.json         — template index consumed by `boardwalk init` (name, description, tags, required secrets)
 harness/              — CI runner that executes every template end-to-end
@@ -31,10 +33,10 @@ Rules:
 
 | Template | Demonstrates |
 |---|---|
-| `hello-routine` | The 20-line floor: manual trigger, one `agent()` call, `output()` |
+| `hello-routine` | The 20-line floor: manual trigger, one `agent()` call, one returned output |
 | `claude-code-cron` | **The migration template:** an existing `claude -p` script run on a cron via `child_process` — zero-rewrite hosting for Claude Code scripts |
-| `morning-digest` | Cron + `secrets.get` (a GitHub PAT) + `agent()` summarization + `output()` |
-| `webhook-responder` | Webhook trigger (`token` auth) + `input` payload + conditional logic |
+| `morning-digest` | Cron + `secrets.get` (a GitHub PAT) + `agent()` summarization |
+| `webhook-responder` | Webhook trigger (`token` auth) + a typed `run(input)` payload + conditional logic |
 | `fan-out-judge` | `parallel()` over `agent()` calls + `schema` structured output |
 | `pipeline` | `workflows.call` composition: a parent workflow durably invoking a child |
 | `long-watch` | `sleep({ until })` + budget caps — the hold-and-pay pattern done right |

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "generate-and-filter",
+  "title": "Generate And Filter",
+  "description": "Generate ideas from several angles, dedupe, then keep the best by a rubric.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 1 },
+}

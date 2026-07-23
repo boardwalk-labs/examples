@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "loop-with-verify",
+  "title": "Loop With Verify",
+  "description": "Find issues until the hunt runs dry, then keep only the ones a separate checker confirms.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 3 },
+}

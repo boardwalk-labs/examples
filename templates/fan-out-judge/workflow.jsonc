@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "fan-out-judge",
+  "title": "Fan Out Judge",
+  "description": "Draft an answer three ways in parallel, then judge the best one.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 1 },
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "pipeline",
+  "title": "Pipeline",
+  "description": "Durably fan URLs through the pipeline-child workflow and aggregate the summaries.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 2 },
+}

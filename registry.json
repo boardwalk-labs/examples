@@ -4,64 +4,156 @@
     {
       "name": "hello-routine",
       "description": "The smallest useful workflow: one agent call, one output.",
-      "tags": ["starter", "agent"],
+      "tags": [
+        "starter",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "claude-code-cron",
-      "description": "Run a Claude Code prompt on a schedule — zero-rewrite hosting for `claude -p` scripts.",
-      "tags": ["migration", "cron", "claude-code"],
-      "secrets": ["ANTHROPIC_API_KEY"],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "description": "Run a Claude Code prompt on a schedule \u2014 zero-rewrite hosting for `claude -p` scripts.",
+      "tags": [
+        "migration",
+        "cron",
+        "claude-code"
+      ],
+      "secrets": [
+        "ANTHROPIC_API_KEY"
+      ],
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "morning-digest",
       "description": "Cron + a secret + agent summarization: your GitHub issues as a morning digest.",
-      "tags": ["cron", "secrets", "agent"],
-      "secrets": ["GITHUB_TOKEN"],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "tags": [
+        "cron",
+        "secrets",
+        "agent"
+      ],
+      "secrets": [
+        "GITHUB_TOKEN"
+      ],
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "webhook-responder",
       "description": "Webhook trigger + typed input + conditional triage (page / ticket / ignore).",
-      "tags": ["webhook", "input"],
+      "tags": [
+        "webhook",
+        "input"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"],
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ],
       "e2e": {
-        "input": { "event": "deploy_failed", "service": "api", "severity": "critical" },
+        "input": {
+          "event": "deploy_failed",
+          "service": "api",
+          "severity": "critical"
+        },
         "expectOutputContains": "page"
       }
     },
     {
       "name": "fan-out-judge",
       "description": "parallel() agent drafts + a schema-validated judge verdict.",
-      "tags": ["parallel", "schema", "agent"],
+      "tags": [
+        "parallel",
+        "schema",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "classify-and-act",
       "description": "A classifier agent labels the task, then code routes it to a tailored handler.",
-      "tags": ["pattern", "routing", "agent"],
+      "tags": [
+        "pattern",
+        "routing",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "code-review",
-      "description": "Review a diff with a reusable reviewer skill — a checklist loaded on demand (progressive disclosure).",
-      "tags": ["pattern", "skills", "agent"],
+      "description": "Review a diff with a reusable reviewer skill \u2014 a checklist loaded on demand (progressive disclosure).",
+      "tags": [
+        "pattern",
+        "skills",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
+      "packages": [
+        "."
+      ],
       "files": [
-        "index.ts",
+        "workflow.jsonc",
+        "src/index.ts",
         "package.json",
+        "tsconfig.json",
         ".gitignore",
         "README.md",
         "skills/reviewer/SKILL.md",
@@ -71,76 +163,185 @@
     {
       "name": "adversarial-verify",
       "description": "Extract a document's claims and refute each with its own skeptical agent.",
-      "tags": ["pattern", "verification", "parallel", "agent"],
+      "tags": [
+        "pattern",
+        "verification",
+        "parallel",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "generate-and-filter",
       "description": "Brainstorm from several angles in parallel, dedupe, then keep the best by a rubric.",
-      "tags": ["pattern", "parallel", "agent"],
+      "tags": [
+        "pattern",
+        "parallel",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "tournament",
       "description": "Rank items by agent-judged pairwise comparison (merge sort holds the bracket).",
-      "tags": ["pattern", "ranking", "agent"],
+      "tags": [
+        "pattern",
+        "ranking",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "loop-until-done",
       "description": "Spawn finder agents until they stop turning up anything new.",
-      "tags": ["pattern", "loop", "agent"],
+      "tags": [
+        "pattern",
+        "loop",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "loop-with-verify",
       "description": "A loop that finds until dry, then a separate checker keeps only the verified findings.",
-      "tags": ["pattern", "loop", "verification", "agent"],
+      "tags": [
+        "pattern",
+        "loop",
+        "verification",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "quarantine-triage",
       "description": "Classify untrusted items with no-privilege readers; act on summaries in trusted code.",
-      "tags": ["pattern", "security", "parallel", "agent"],
+      "tags": [
+        "pattern",
+        "security",
+        "parallel",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"]
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ]
     },
     {
       "name": "pipeline",
       "description": "workflows.call composition: a parent durably fanning work through a child.",
-      "tags": ["composition", "workflows.call", "agent"],
+      "tags": [
+        "composition",
+        "workflows.call",
+        "agent"
+      ],
       "secrets": [],
-      "packages": ["parent", "child"],
+      "packages": [
+        "parent",
+        "child"
+      ],
       "files": [
         "README.md",
-        "parent/index.ts",
+        "parent/workflow.jsonc",
+        "parent/src/index.ts",
         "parent/package.json",
+        "parent/tsconfig.json",
         "parent/.gitignore",
-        "child/index.ts",
+        "child/workflow.jsonc",
+        "child/src/index.ts",
         "child/package.json",
+        "child/tsconfig.json",
         "child/.gitignore"
       ]
     },
     {
       "name": "long-watch",
       "description": "sleep({ until }) + budget caps: probe a URL until healthy or deadline.",
-      "tags": ["sleep", "budget", "hold-and-pay"],
+      "tags": [
+        "sleep",
+        "budget",
+        "hold-and-pay"
+      ],
       "secrets": [],
-      "packages": ["."],
-      "files": ["index.ts", "package.json", ".gitignore", "README.md"],
+      "packages": [
+        "."
+      ],
+      "files": [
+        "workflow.jsonc",
+        "src/index.ts",
+        "package.json",
+        "tsconfig.json",
+        ".gitignore",
+        "README.md"
+      ],
       "e2e": {
-        "input": { "url": "{{harnessUrl}}", "deadlineSeconds": 10, "intervalSeconds": 1 },
+        "input": {
+          "url": "{{harnessUrl}}",
+          "deadlineSeconds": 10,
+          "intervalSeconds": 1
+        },
         "expectOutputContains": "healthy"
       }
     }

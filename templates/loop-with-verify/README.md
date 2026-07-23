@@ -46,5 +46,5 @@ compact, or batch several findings into one checker call, when that gets large.
   change the stop condition to fit (no new errors in the build, queue drained, target count reached).
 - **Tune the checker's bar** to your stakes: stricter to cut false positives, looser to keep more.
 - **Make it recurring.** This is a *bounded* loop: one run that converges and stops. To run it on a
-  cadence, add a `cron` trigger to `meta.triggers` — each tick is then its own fresh run. Reach for
+  cadence, add a `cron` trigger to `workflow.jsonc` — each tick is then its own fresh run. Reach for
   `workflows.schedule(...)` only when the schedule is computed at runtime.

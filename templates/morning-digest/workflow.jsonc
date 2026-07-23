@@ -1,0 +1,9 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "morning-digest",
+  "title": "Morning Digest",
+  "description": "Summarize my open GitHub issues every weekday morning.",
+  "triggers": [{ "kind": "cron", "expr": "0 9 * * 1-5", "timezone": "America/New_York" }],
+  "permissions": { "secrets": [{ "name": "GITHUB_TOKEN" }] },
+  "budget": { "max_usd": 0.5, "max_compute_seconds": 300 },
+}

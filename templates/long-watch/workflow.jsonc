@@ -1,0 +1,11 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "long-watch",
+  "title": "Long Watch",
+  "description": "Probe a URL until it's healthy or the deadline passes.",
+  "triggers": [{ "kind": "manual" }],
+  // The backstop: a watch someone forgot about ends itself (a breach pauses for approval).
+  "budget": { "max_compute_seconds": 3600 },
+  // A second trigger queues instead of double-watching.
+  "concurrency": { "mode": "serial" },
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "loop-until-done",
+  "title": "Loop Until Done",
+  "description": "Spawn finder agents until they stop turning up anything new.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 2 },
+}

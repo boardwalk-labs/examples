@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    // Relaxed so the untyped floor — a bare `run(input)` with no annotation — stays
+    // squiggle-free. Annotate the parameter to opt into the typed contract.
+    "noImplicitAny": false,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

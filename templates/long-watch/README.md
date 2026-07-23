@@ -21,7 +21,9 @@ boardwalk run . --org <your-org> --input '{"url":"https://your-service/healthz"}
 
 - **`sleep({ until })`** — durable waits to an absolute time. A held run is cheap; an
   always-on poller in your infra is not.
-- **`budget.max_duration_seconds`** — the backstop. A watch someone forgot about ends itself.
+- **`budget.max_compute_seconds`** — the backstop. A watch someone forgot about ends itself
+  (a breach pauses the run for approval).
 - **`concurrency: { mode: "serial" }`** — a second trigger queues instead of double-watching.
-- **Failure is a verdict** — the run still `output()`s what it saw, then fails, so the
-  unhealthy outcome is visible in run history (and in notifications), not silent.
+- **Failure is a verdict** — an unhealthy deadline throws, failing the run with the last status
+  it saw in the error, so the outcome is visible in run history (and in notifications), not
+  silent.

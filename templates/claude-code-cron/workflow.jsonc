@@ -1,0 +1,11 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "claude-code-cron",
+  "title": "Claude Code Cron",
+  "description": "Run a Claude Code prompt on a schedule — zero-rewrite hosting for `claude -p`.",
+  // The schedule lives here, versioned with the code — not in a separate scheduler config.
+  "triggers": [{ "kind": "cron", "expr": "0 9 * * 1-5", "timezone": "America/New_York" }],
+  "permissions": { "secrets": [{ "name": "ANTHROPIC_API_KEY" }] },
+  // Caps a runaway run — a breach pauses for approval, never a hard kill.
+  "budget": { "max_compute_seconds": 900 },
+}

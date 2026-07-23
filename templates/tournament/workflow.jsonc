@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "tournament",
+  "title": "Tournament",
+  "description": "Rank items by agent-judged pairwise comparison (merge sort holds the bracket).",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 2 },
+}

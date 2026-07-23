@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "pipeline-child",
+  "title": "Pipeline Child",
+  "description": "Fetch one URL and summarize it (the pipeline's unit of work).",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 0.25, "max_compute_seconds": 120 },
+}

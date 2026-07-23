@@ -1,0 +1,9 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "webhook-responder",
+  "title": "Webhook Responder",
+  "description": "Triage incoming webhook events: decide page / ticket / ignore.",
+  // The payload's shape is NOT declared here — it's the typed `run(input)` parameter in
+  // src/index.ts, derived into the input schema at deploy.
+  "triggers": [{ "kind": "webhook", "auth": "token" }],
+}

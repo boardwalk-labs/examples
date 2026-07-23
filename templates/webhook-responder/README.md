@@ -32,7 +32,8 @@ curl -X POST "$WEBHOOK_URL" -H "Authorization: Bearer $WEBHOOK_TOKEN" \
 
 ## Notes
 
-- `input_schema` in `meta` documents and validates the payload shape — bad payloads fail before
-  your code runs.
+- The typed `run(input)` parameter IS the payload contract: the deploy derives its schema, so the
+  dashboard's run form and your producers know the shape. There's no pre-run gate — a payload
+  arrives best-effort, exactly like a Lambda event; validate in code if you need a hard check.
 - The triage here is deterministic `if`/`else`. When the judgment gets fuzzier than rules can
   express, hand that one decision to `agent()` and keep the rest as code.

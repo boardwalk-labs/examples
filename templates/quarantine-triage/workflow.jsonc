@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "quarantine-triage",
+  "title": "Quarantine Triage",
+  "description": "Classify untrusted items with no-privilege readers; act in trusted code.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 2 },
+}

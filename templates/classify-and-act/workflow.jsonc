@@ -1,0 +1,8 @@
+{
+  "$schema": "https://boardwalk.sh/schemas/workflow.json",
+  "slug": "classify-and-act",
+  "title": "Classify And Act",
+  "description": "Classify an incoming message, then route it to a tailored handler.",
+  "triggers": [{ "kind": "manual" }],
+  "budget": { "max_usd": 1 },
+}
