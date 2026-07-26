@@ -13,7 +13,7 @@ only when it needs the detail.
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> --input '{"diff": "--- a/auth.ts\n+++ b/auth.ts\n@@\n- const q = `SELECT * FROM users WHERE id = ${id}`\n+ const q = db.query(\"SELECT * FROM users WHERE id = $1\", [id])"}'
+boardwalk deploy . --org <your-org> --run --input '{"diff": "--- a/auth.ts\n+++ b/auth.ts\n@@\n- const q = `SELECT * FROM users WHERE id = ${id}`\n+ const q = db.query(\"SELECT * FROM users WHERE id = $1\", [id])"}'
 ```
 
 ## How it works

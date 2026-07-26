@@ -17,7 +17,7 @@ reliability win when you loop an agent toward a goal.
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> --input '{"text": "<a spec, a log, or a diff to comb for issues>"}'
+boardwalk deploy . --org <your-org> --run --input '{"text": "<a spec, a log, or a diff to comb for issues>"}'
 ```
 
 The output separates `findings` (verified) from `rejectedFindings` (with the reason each was thrown

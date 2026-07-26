@@ -20,7 +20,7 @@ workflows stay debuggable and injection-resistant.
 ```sh
 boardwalk check .                   # validate locally
 boardwalk deploy . --org <your-org> # the cron takes over
-boardwalk run . --org <your-org>    # or trigger one digest right now
+boardwalk deploy . --org <your-org> --run    # or trigger one digest right now
 ```
 
 ## Make it yours

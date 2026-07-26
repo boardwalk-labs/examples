@@ -12,7 +12,7 @@ until they stop turning up anything new — not for a fixed number of passes.
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> --input '{"text": "<a spec, a log, or a diff to comb for issues>"}'
+boardwalk deploy . --org <your-org> --run --input '{"text": "<a spec, a log, or a diff to comb for issues>"}'
 ```
 
 ## How it works

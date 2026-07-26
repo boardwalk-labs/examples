@@ -7,7 +7,7 @@ not prose.
 ## Run
 
 ```sh
-boardwalk run . --org <your-org> --input '{"task":"Write the launch tweet for our new CLI."}'
+boardwalk deploy . --org <your-org> --run --input '{"task":"Write the launch tweet for our new CLI."}'
 ```
 
 ## What it demonstrates

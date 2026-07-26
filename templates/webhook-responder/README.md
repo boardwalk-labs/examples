@@ -8,8 +8,8 @@ input** path, and a run costs no model tokens.
 
 ```sh
 boardwalk check .   # validate — no account needed
-boardwalk run . --org <your-org> --input '{"event":"deploy_failed","service":"api","severity":"high"}'
-boardwalk run . --org <your-org> --input '{"event":"heartbeat","severity":"low"}'
+boardwalk deploy . --org <your-org> --run --input '{"event":"deploy_failed","service":"api","severity":"high"}'
+boardwalk deploy . --org <your-org> --run --input '{"event":"heartbeat","severity":"low"}'
 ```
 
 `run` deploys, triggers a hosted run, and waits, printing the decision back. Inspect any run

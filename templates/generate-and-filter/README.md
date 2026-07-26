@@ -12,7 +12,7 @@ judge keep the best few against a rubric. Diverge hard, narrow hard.
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> --input '{"brief": "a name for a CLI that ships agent workflows", "keep": 3}'
+boardwalk deploy . --org <your-org> --run --input '{"brief": "a name for a CLI that ships agent workflows", "keep": 3}'
 ```
 
 ## How it works

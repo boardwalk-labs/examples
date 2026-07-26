@@ -11,7 +11,7 @@ The smallest useful workflow: one `agent()` call, one returned output. ~20 lines
 
 ```sh
 boardwalk check .                 # validate locally — no account
-boardwalk run . --org <your-org>  # deploy + run on hosted Boardwalk
+boardwalk deploy . --org <your-org> --run  # deploy + run on hosted Boardwalk
 ```
 
 `agent()` names no model and no provider, so Boardwalk routes it automatically — that's the

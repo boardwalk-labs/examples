@@ -7,14 +7,14 @@ deadline) survive; there's no checkpoint dance, no requeue, no state machine.
 Agent-free, so a first run costs no model tokens:
 
 ```sh
-boardwalk run . --org <your-org> --input '{"url":"https://example.com","deadlineSeconds":10,"intervalSeconds":2}'
+boardwalk deploy . --org <your-org> --run --input '{"url":"https://example.com","deadlineSeconds":10,"intervalSeconds":2}'
 ```
 
 ## Deploy
 
 ```sh
 boardwalk deploy . --org <your-org>
-boardwalk run . --org <your-org> --input '{"url":"https://your-service/healthz"}' --no-wait
+boardwalk deploy . --org <your-org> --run --input '{"url":"https://your-service/healthz"}' --no-wait
 ```
 
 ## What it demonstrates

@@ -20,7 +20,7 @@ There is deliberately nothing clever here. The program shells out to the Claude 
 ```sh
 boardwalk check .                   # validate locally
 boardwalk deploy . --org <your-org> # ship it — the cron trigger takes over from here
-boardwalk run . --org <your-org>    # or trigger one run right now
+boardwalk deploy . --org <your-org> --run    # or trigger one run right now
 ```
 
 ## Notes

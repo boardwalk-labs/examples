@@ -18,7 +18,7 @@ pipeline/
 ```sh
 boardwalk deploy child  --org <your-org>
 boardwalk deploy parent --org <your-org>
-boardwalk run parent --org <your-org> \
+boardwalk run pipeline --org <your-org> \
   --input '{"urls":["https://example.com","https://news.ycombinator.com"]}'
 ```
 

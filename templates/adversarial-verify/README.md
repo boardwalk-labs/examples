@@ -12,7 +12,7 @@ told to *refute* it. A claim survives only if its own verifier can't knock it do
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> --input '{"document": "Our API handles 1M req/s with zero downtime since 2019."}'
+boardwalk deploy . --org <your-org> --run --input '{"document": "Our API handles 1M req/s with zero downtime since 2019."}'
 ```
 
 ## How it works

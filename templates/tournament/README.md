@@ -12,7 +12,7 @@ the bracket; one fresh agent judges each matchup, so only two items are ever in 
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> \
+boardwalk deploy . --org <your-org> --run \
   --input '{"items": ["login is broken", "typo in footer", "data loss on save"], "criterion": "higher severity", "topK": 1}'
 ```
 

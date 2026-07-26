@@ -12,7 +12,7 @@ for that label — a tailored agent for the messy cases, a plain action for the 
 
 ```sh
 boardwalk check .
-boardwalk run . --org <your-org> --input '{"message": "the export button 500s on Safari"}'
+boardwalk deploy . --org <your-org> --run --input '{"message": "the export button 500s on Safari"}'
 ```
 
 ## How it works
