@@ -40,7 +40,8 @@ export default async function run(input: Input): Promise<{ triaged: number; acti
   phase("Quarantine — read");
   // Reader agents get the raw, untrusted content — and nothing else. No tools, no secrets, no
   // fetch. Their only output is a structured summary; the content is data to describe, never
-  // instructions to follow.
+  // instructions to follow. `builtins: "none"` is what makes that true: the default is "all",
+  // which would hand a reader bash, write, and http on the strength of a hostile ticket.
   const summaries = await parallel(
     items.map((item) => async () => {
       try {
@@ -55,6 +56,7 @@ Answer ONLY with JSON:
 {"category": "bug|billing|feature|abuse|other", "severity": "low|medium|high",
  "oneLine": "<neutral one-line summary>", "dedupeKey": "<short slug of the core issue>"}`,
           {
+            builtins: "none",
             schema: {
               type: "object",
               properties: {

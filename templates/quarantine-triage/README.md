@@ -25,6 +25,8 @@ the code that *could* act never sees it.
 - **Quarantine — read** — `parallel()` runs one reader per item. Readers get the raw content and
   nothing else: no tools, no `secrets.get()`, no `fetch()`. Their only output is a
   `schema`-validated summary. The prompt frames the content as data, not instructions.
+  `builtins: "none"` is what makes "no tools" true — the default is `"all"`, which would give a
+  reader `bash`, `write`, and `http` on the strength of a hostile ticket.
 - **Trusted — act** — plain program code (the trusted layer — the only place `secrets.get()`
   lives) decides on the summaries: dedupe, escalate, or open a ticket. It never reads
   `item.content`.
