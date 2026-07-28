@@ -79,7 +79,7 @@ green harness. Keep each template to one idea; don't bundle unrelated features.
 
 - [`boardwalk`](https://github.com/boardwalk-labs/boardwalk) — the open-source single-node engine: cron scheduling, webhooks, durable runs, run history
 - [`sdk-typescript`](https://github.com/boardwalk-labs/sdk-typescript) — `@boardwalk-labs/workflow`, the TypeScript API a workflow program imports
-- [`cli`](https://github.com/boardwalk-labs/cli) — `boardwalk`: scaffold, validate, run, deploy
+- [`cli`](https://github.com/boardwalk-labs/cli) — `boardwalk`: scaffold, validate, deploy, run
 - [`plugins`](https://github.com/boardwalk-labs/plugins) — coding-agent skills (Claude Code, Codex, Cursor, OpenClaw, OpenCode) + a control-plane MCP server
 - [`runner`](https://github.com/boardwalk-labs/runner) — self-hosted runner: your machines execute hosted-scheduled runs
 
