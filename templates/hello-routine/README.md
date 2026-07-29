@@ -15,7 +15,8 @@ boardwalk deploy . --org <your-org> --run  # deploy + run on hosted Boardwalk
 ```
 
 `agent()` names no model and no provider, so Boardwalk routes it automatically — that's the
-default on every engine. Your own keys are used only when you name a provider explicitly.
+default on every engine. Your own keys are used only when you name a provider explicitly, and
+the name is whatever you called it when you ran `boardwalk inference add`.
 
 ## Make it yours
 
